@@ -17,9 +17,40 @@ void initLCD() {
 }
 
 void displayLine(int line, const char* text) {
+  if (line < 0 || line >= LCD_ROWS) {
+    debugPrintln("Invalid LCD line", DEBUG_ERROR);
+    return;
+  }
+  clearLine(line);
   lcd.setCursor(0, line);
   lcd.print(text);
   debugPrintf(DEBUG_VERBOSE, "Displayed on LCD line %d: %s\n", line, text);
+}
+
+void clearLine(int line) {
+  if (line < 0 || line >= LCD_ROWS) {
+    debugPrintln("Invalid LCD line", DEBUG_ERROR);
+    return;
+  }
+  lcd.setCursor(0, line);
+  for (int i = 0; i < LCD_COLUMNS; i++) {
+    lcd.print(' ');
+  }
+}
+
+void centerText(int line, const char* text) {
+  if (line < 0 || line >= LCD_ROWS) {
+    debugPrintln("Invalid LCD line", DEBUG_ERROR);
+    return;
+  }
+  int textLength = strlen(text);
+  int padding = (LCD_COLUMNS - textLength) / 2;
+  if (padding < 0) padding = 0;
+
+  clearLine(line);
+  lcd.setCursor(padding, line);
+  lcd.print(text);
+  debugPrintf(DEBUG_VERBOSE, "Centered on LCD line %d: %s\n", line, text);
 }
 
 // A test cycle across the 16x2 screen we use - during setup()

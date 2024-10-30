@@ -84,18 +84,18 @@ void selfTest() {
   lcd.clear();
 
   // Roll on: Fill the screen
-  for (int i = 0; i < 32; ++i) {  // 16 cols * 2 rows
-    int row = i / 16;             // Calculate row (0 or 1)
-    int col = i % 16;             // Calculate column (0 to 15)
+  for (int i = 0; i < (LCD_COLUMNS * LCD_ROWS); ++i) {  // 16 cols * 2 rows
+    int row = i / LCD_COLUMNS;                          // Calculate row (0 or 1)
+    int col = i % LCD_COLUMNS;                          // Calculate column (0 to 15)
     lcd.setCursor(col, row);
     lcd.write(byte(CHAR_FILL));  // Test by filling all pixels
     delay(22);
   }
 
-  delay(350);  // Hold the display filled for a moment
+  delay(500);  // Hold the display filled for a moment
 
   // Roll off: Clear the screen
-  for (int i = 0; i < 16; ++i) {
+  for (int i = 0; i < LCD_COLUMNS; ++i) {
     // Clear from the end of the first row
     lcd.setCursor(15 - i, 0);
     lcd.write(' ');  // clear one char

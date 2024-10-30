@@ -70,7 +70,7 @@ const uint8_t PRESSURE_CONST[8] = {
   0b00100
 };
 
-void initCustomChars(LiquidCrystal& lcd) {
+void initCustomChars(LiquidCrystal_I2C& lcd) {
   uint8_t thermometer[8];
   uint8_t humidity[8];
   uint8_t light[8];

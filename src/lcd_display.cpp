@@ -65,7 +65,6 @@ void centerText(int line, const char* text) {
 }
 
 void updateLCDDisplay() {
-  static unsigned long lastUpdateTime = 0;
   unsigned long currentTime = millis();
 
   // update time on top row.

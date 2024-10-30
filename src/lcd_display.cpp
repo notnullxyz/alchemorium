@@ -2,6 +2,7 @@
 #include <LiquidCrystal.h>
 #include "serial_debug.h"
 #include "lcd_custom_chars.h"
+#include "bmp280_sensor.h"
 #include <time.h>
 
 // Initialize the library with the numbers of the interface pins
@@ -12,12 +13,12 @@ enum MetricState {
   TEMP,
   HUMIDITY,
   LIGHT,
+  PRESSURE,
   STATE_COUNT
 };
 
 static MetricState currentState = TEMP;
 static unsigned long lastUpdateTime = 0;
-const unsigned long UPDATE_INTERVAL = 3000;  // 3sec
 
 void selfTest();
 void displayDeviceInfo();
@@ -25,8 +26,9 @@ void updateTimeDisplay();
 void updateMetricDisplay();
 
 void initLCD() {
-  lcd.begin(16, 2);  // Set up the LCD's number of columns and rows
+  lcd.begin(LCD_COLUMNS, LCD_ROWS);
   debugPrintln("LCD initialized. Starting self-test and greeting.", DEBUG_INFO);
+  initCustomChars(lcd);
   selfTest();
   displayDeviceInfo();
 }
@@ -57,19 +59,19 @@ void centerText(int line, const char* text) {
   int textLength = strlen(text);
   int padding = (LCD_COLUMNS - textLength) / 2;
   if (padding < 0) padding = 0;
-  
   clearLine(line);
   lcd.setCursor(padding, line);
   lcd.print(text);
 }
 
 void updateLCDDisplay() {
+  static unsigned long lastUpdateTime = 0;
   unsigned long currentTime = millis();
-  
-  // Update time on row 0 of the lcd
+
+  // update time on top row.
   updateTimeDisplay();
-  
-  // update display of metrics every UPDATE_INTERVAL
+
+  // Update the metric display every UPDATE_INTERVAL
   if (currentTime - lastUpdateTime >= UPDATE_INTERVAL) {
     updateMetricDisplay();
     lastUpdateTime = currentTime;
@@ -86,8 +88,8 @@ void selfTest() {
     int row = i / 16;             // Calculate row (0 or 1)
     int col = i % 16;             // Calculate column (0 to 15)
     lcd.setCursor(col, row);
-    lcd.write(byte(CHAR_FILL));   // Test by filling all pixels
-    delay(16);
+    lcd.write(byte(CHAR_FILL));  // Test by filling all pixels
+    delay(22);
   }
 
   delay(350);  // Hold the display filled for a moment
@@ -96,34 +98,19 @@ void selfTest() {
   for (int i = 0; i < 16; ++i) {
     // Clear from the end of the first row
     lcd.setCursor(15 - i, 0);
-    lcd.write(' ');  // Clear character by writing a space
-
-    // Clear from the start of the second row
+    lcd.write(' ');  // clear one char
     lcd.setCursor(i, 1);
-    lcd.write(' ');  // Clear character by writing a space
+    lcd.write(' ');
 
-    delay(19);
+    delay(24);
   }
 }
 
 // hello there
 void displayDeviceInfo() {
   lcd.clear();
-  // lcd.setCursor(2, 0);
-  // lcd.print(DEVICE_NAME);
   centerText(0, DEVICE_NAME);
   delay(70);
-
-  // Center the version on the second line
-  /**for (int i = 0; i < 6; ++i) {
-    lcd.setCursor(0, 1);
-    lcd.print("                ");
-    delay(80);
-    lcd.setCursor(6, 1);  // centering
-    lcd.print(VERSION);
-    delay(80);
-  }*/
-
   centerText(1, VERSION);
   delay(500);
   lcd.clear();
@@ -134,10 +121,10 @@ void updateTimeDisplay() {
   struct tm timeinfo;
   time(&now);
   localtime_r(&now, &timeinfo);
-  
+
   char timeStr[17];
   strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
-  
+
   lcd.setCursor(0, 0);
   lcd.print(timeStr);
 }
@@ -145,27 +132,32 @@ void updateTimeDisplay() {
 void updateMetricDisplay() {
   clearLine(1);
   lcd.setCursor(0, 1);
-  
-  switch(currentState) {
+
+  switch (currentState) {
     case TEMP:
       lcd.write(byte(CHAR_THERMOMETER));
       lcd.print(" ");
-      lcd.print(getTemperature());
+      lcd.print(readTemperature());
       lcd.print("C");
       break;
     case HUMIDITY:
       lcd.write(byte(CHAR_HUMIDITY));
       lcd.print(" ");
-      lcd.print(getHumidity());
+      lcd.print("??");  // still to do
       lcd.print("%");
       break;
     case LIGHT:
       lcd.write(byte(CHAR_LIGHT));
       lcd.print(" ");
-      lcd.print(getLightLevel());
+      lcd.print("??");
       lcd.print("lux");
       break;
-    // and so forth
+    case PRESSURE:
+      lcd.write(byte(CHAR_PRESSURE));
+      lcd.print(" ");
+      lcd.print(readPressure());
+      lcd.print("hPa");
+      break;
+      // and so forth.
   }
 }
-

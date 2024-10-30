@@ -7,37 +7,38 @@
 #include "src/serial_debug.h"
 #include "src/scheduler.h"
 
+// Cooperative multitasking with configurable CPU yield
+const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
+const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
+
 void setup() {
-    initDebug();
-    initLCD();
-    
-    // Lambda function to display on LCD
-    auto displayOnLCD = [](const char* line1, const char* line2) {
-        displayLine(0, line1);
-        displayLine(1, line2);
-        delay(2000);  // Show message for 2 seconds
-    };
+  initDebug();
+  initLCD();
 
-    if (!initTempAndPressureSystem(displayOnLCD)) {
-        debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
-    }
+  // Lambda function to display on LCD
+  auto displayOnLCD = [](const char* line1, const char* line2) {
+    displayLine(0, line1);
+    displayLine(1, line2);
+    delay(2000);  // Show message for 2 seconds
+  };
 
-    // Add tasks to the scheduler
-    scheduler.addTask(updateIdleDisplay, 5000);  // Update idle display every 5 seconds
+  if (!initTempAndPressureSystem(displayOnLCD)) {
+    debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
+  }
 
-    // Add more tasks here as you develop new features
-    // For example:
-    // scheduler.addTask(checkSensors, 1000);  // Check sensors every second
-    // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms
-    // scheduler.addTask(controlRelays, 60000);  // Control relays every minute
+  // Add tasks to the scheduler
+  scheduler.addTask(updateIdleDisplay, 5000);  // Update idle display every 5 seconds
 
-    setDebugLevel(DEBUG_VERBOSE);
+  // And more here...
+  // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms
+  // scheduler.addTask(controlRelays, 60000);  // Control relays every minute
 
-    // Any other initializations from your original setup...
+  setDebugLevel(DEBUG_VERBOSE);
+
+  // Any other initializations from your original setup...
 }
 
 void loop() {
-    scheduler.run();
-    // Your loop can now be empty or contain only non-blocking code
-    // If you had any other non-blocking code in your original loop, you can keep it here
+  scheduler.run();
+  delay(LOOP_DELAY_MS);
 }

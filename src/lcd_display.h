@@ -10,5 +10,11 @@ void initLCD();
 void displayLine(int line, const char* text);
 void clearLine(int line);
 void centerText(int line, const char* text);
+void updateLCDDisplay();
+
+// Declare these as external functions
+extern float getTemperature();
+extern float getHumidity();
+extern int getLightLevel();
 
 #endif

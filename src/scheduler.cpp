@@ -12,10 +12,12 @@ void Scheduler::run() {
     if (currentMillis - task.lastRun >= task.interval) {
       task.function();
       task.lastRun = currentMillis;
-      if (task.runOnce) {
-        task = tasks.back();
-        tasks.pop_back();
-      }
     }
   }
+  
+  tasks.erase(
+    std::remove_if(tasks.begin(), tasks.end(), 
+      [](const Task& task) { return task.runOnce && (millis() - task.lastRun >= task.interval); }),
+    tasks.end()
+  );
 }

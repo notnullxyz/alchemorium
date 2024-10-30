@@ -27,15 +27,13 @@ void setup() {
   }
 
   // Add tasks to the scheduler
-  scheduler.addTask(updateLCDDisplay, 1000);
+  scheduler.addTask(updateLCDDisplay, 1000);  // run lcd upd every sec, even if sensor upds are less frequent
 
   // And more here...
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms
   // scheduler.addTask(controlRelays, 60000);  // Control relays every minute
 
   setDebugLevel(DEBUG_VERBOSE);
-
-  // Any other initializations from your original setup...
 }
 
 void loop() {

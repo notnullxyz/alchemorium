@@ -116,6 +116,8 @@ void displayDeviceInfo() {
   lcd.clear();
 }
 
+// Get and dsplay current time.
+// TODO RTC
 void updateTimeDisplay() {
   time_t now;
   struct tm timeinfo;

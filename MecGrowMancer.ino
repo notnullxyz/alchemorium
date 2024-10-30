@@ -27,7 +27,7 @@ void setup() {
   }
 
   // Add tasks to the scheduler
-  scheduler.addTask(updateIdleDisplay, 5000);  // Update idle display every 5 seconds
+  scheduler.addTask(updateLCDDisplay, 1000);
 
   // And more here...
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms

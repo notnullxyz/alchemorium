@@ -2,7 +2,7 @@
 #include "bmp280_sensor.h"
 #include "serial_debug.h"
 
-Adafruit_BMP280 bmp;  // Declare the sensor object
+Adafruit_BMP280 bmp;
 
 bool initTempAndPressureSystem(void (*displayCallback)(const char*, const char*)) {
   debugPrintln("Initializing BMP280...", DEBUG_INFO);
@@ -17,7 +17,7 @@ bool initTempAndPressureSystem(void (*displayCallback)(const char*, const char*)
 
   debugPrintln("initTempAndPressureSystem(): OK", DEBUG_INFO);
 
-  // Default settings from datasheet
+  // Sensor filters and sampling... chgeck the datasheet.
   bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,      // Operating Mode
                   Adafruit_BMP280::SAMPLING_X4,      // Temp. oversampling
                   Adafruit_BMP280::SAMPLING_X16,     // Pressure oversampling

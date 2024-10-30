@@ -3,7 +3,7 @@
 // Custom module headers
 #include "src/lcd_display.h"
 #include "src/bmp280_sensor.h"
-#include "src/idle_mode.h"
+
 #include "src/serial_debug.h"
 #include "src/scheduler.h"
 

@@ -1,13 +1,12 @@
 #include "lcd_display.h"
-#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
 #include "serial_debug.h"
 #include "lcd_custom_chars.h"
 #include "bmp280_sensor.h"
 #include <time.h>
 
-// Initialize the library with the numbers of the interface pins
-const int rs = 19, en = 23, d4 = 18, d5 = 17, d6 = 16, d7 = 15;  // TODO clean up var mem
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+// Initialize the library with the address and cols/rows
+LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
 
 enum MetricState {
   TEMP,
@@ -26,7 +25,8 @@ void updateTimeDisplay();
 void updateMetricDisplay();
 
 void initLCD() {
-  lcd.begin(LCD_COLUMNS, LCD_ROWS);
+  lcd.init();
+  lcd.backlight();
   debugPrintln("LCD initialized. Starting self-test and greeting.", DEBUG_INFO);
   initCustomChars(lcd);
   selfTest();

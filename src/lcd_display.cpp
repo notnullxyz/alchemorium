@@ -117,18 +117,29 @@ void displayDeviceInfo() {
 
 // Get and dsplay current time.
 // TODO RTC
+// void updateTimeDisplay() {
+//   time_t now;
+//   struct tm timeinfo;
+//   time(&now);
+//   localtime_r(&now, &timeinfo);
+
+//   char timeStr[17];
+//   strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
+
+//   lcd.setCursor(0, 0);
+//   lcd.print(timeStr);
+// }
+
+// update time for the lcd, using a call to RTC
 void updateTimeDisplay() {
-  time_t now;
-  struct tm timeinfo;
-  time(&now);
-  localtime_r(&now, &timeinfo);
-
+  DateTime now = getCurrentTime();
   char timeStr[17];
-  strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
-
+  snprintf(timeStr, sizeof(timeStr), "%02d:%02d:%02d %02d/%02d", 
+           now.hour(), now.minute(), now.second(), now.day(), now.month());
   lcd.setCursor(0, 0);
   lcd.print(timeStr);
 }
+
 
 void updateMetricDisplay() {
   clearLine(1);

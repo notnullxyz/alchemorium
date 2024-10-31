@@ -11,6 +11,11 @@
 const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
 const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
 
+// NTP Synchronise RTP Interval
+const unsigned long NTP_SYNC_INTERVAL = 12 * 60 * 60 * 1000UL; // every 12 hours (in millis)
+
+const unsigned long LCD_UPDATE_INTERVAL = 1000; // every second
+
 void setup() {
   initDebug();
   initLCD();
@@ -22,12 +27,18 @@ void setup() {
     delay(2000);  // Show message for 2 seconds
   };
 
+  if (!initRTC()) {
+    debugPrintln("Failed to initialize RTC", DEBUG_ERROR);
+  }
+
   if (!initTempAndPressureSystem(displayOnLCD)) {
     debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
   }
 
   // Add tasks to the scheduler
-  scheduler.addTask(updateLCDDisplay, 1000);  // run lcd upd every sec, even if sensor upds are less frequent
+  scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);  // run lcd upd every...
+  scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL); // update the RTC via NTP every...
+
 
   // And more here...
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms

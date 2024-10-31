@@ -4,6 +4,7 @@
 #include "lcd_custom_chars.h"
 #include "bmp280_sensor.h"
 #include <time.h>
+#include "src/rtc_module.h"
 
 // Initialize the library with the address and cols/rows
 LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
@@ -117,18 +118,29 @@ void displayDeviceInfo() {
 
 // Get and dsplay current time.
 // TODO RTC
+// void updateTimeDisplay() {
+//   time_t now;
+//   struct tm timeinfo;
+//   time(&now);
+//   localtime_r(&now, &timeinfo);
+
+//   char timeStr[17];
+//   strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
+
+//   lcd.setCursor(0, 0);
+//   lcd.print(timeStr);
+// }
+
+// update time for the lcd, using a call to RTC
 void updateTimeDisplay() {
-  time_t now;
-  struct tm timeinfo;
-  time(&now);
-  localtime_r(&now, &timeinfo);
-
+  RtcDateTime now = getCurrentTime();
   char timeStr[17];
-  strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
-
+  snprintf(timeStr, sizeof(timeStr), "%02u:%02u:%02u %02u/%02u", 
+           now.Hour(), now.Minute(), now.Second(), now.Day(), now.Month());
   lcd.setCursor(0, 0);
   lcd.print(timeStr);
 }
+
 
 void updateMetricDisplay() {
   clearLine(1);

@@ -1,15 +1,16 @@
 #ifndef RTC_MODULE_H
 #define RTC_MODULE_H
 
-#include <RTClib.h>
+#include <ThreeWire.h>
+#include <RtcDS1302.h>
 
-extern RTC_DS3231 rtc;
+extern RtcDS1302<ThreeWire> Rtc;
 
 bool initRTC();
-DateTime getCurrentTime();
-void setRTCTime(const DateTime& dt);
+RtcDateTime getCurrentTime();
+void setRTCTime(const RtcDateTime& dt);
 
-// placeholder. Will use ntp over wifi to synchronise time.
+// placeholder until we have wifi connectivity
 void syncRTCWithNTP();
 
 #endif

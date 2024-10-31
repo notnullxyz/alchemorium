@@ -1,29 +1,37 @@
 #include "rtc_module.h"
 #include "serial_debug.h"
 
-RTC_DS3231 rtc;
+const int DAT = 26;  // DAT
+const int CLK = 25;  // CLK
+const int RST = 27;  // RST
 
+ThreeWire myWire(DAT, CLK, RST);
+RtcDS1302<ThreeWire> Rtc(myWire);
 bool initRTC() {
-  if (!rtc.begin()) {
-    debugPrintln("Couldn't find RTC", DEBUG_ERROR);
-    return false;
+
+  Rtc.Begin();
+  if (!Rtc.IsDateTimeValid()) {
+    debugPrintln("RTC lost confidence in the DateTime!", DEBUG_WARNING);
+    // set a default, compile time.
+    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
+    Rtc.SetDateTime(compiled);
   }
-  if (rtc.lostPower()) {
-    debugPrintln("RTC lost power, setting default time", DEBUG_WARNING);
-    // set time somehow here.
+  if (!Rtc.GetIsRunning()) {
+    debugPrintln("RTC not running, so starting now", DEBUG_INFO);
+    Rtc.SetIsRunning(true);
   }
   return true;
 }
 
-DateTime getCurrentTime() {
-  return rtc.now();
+RtcDateTime getCurrentTime() {
+  return Rtc.GetDateTime();
 }
 
-void setRTCTime(const DateTime& dt) {
-  rtc.adjust(dt);
+void setRTCTime(const RtcDateTime& dt) {
+  Rtc.SetDateTime(dt);
 }
 
-// use NTP to synchronise the real time clock.
+// TODO when we have wifi  connectivity
 void syncRTCWithNTP() {
   debugPrintln("NTP sync not implemented yet", DEBUG_INFO);
 }

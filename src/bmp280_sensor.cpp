@@ -1,3 +1,8 @@
+/*
+ * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+ * License: GNU GPLv3 (see LICENSE/COPYING file for details)
+ */
 
 #include "bmp280_sensor.h"
 #include "serial_debug.h"
@@ -33,7 +38,7 @@ float readTemperature() {
   float temp = bmp.readTemperature();
   if (isnan(temp)) {
     debugPrintln("Failed to read temperature", DEBUG_ERROR);
-    return -999.99;  // an impossible value to indicate error
+    return -999.99;  // an obvious value to raise concerns...
   }
   debugPrintf(DEBUG_VERBOSE, "Temperature: %.2f °C\n", temp);
   return temp;
@@ -43,7 +48,7 @@ float readPressure() {
   float pressure = bmp.readPressure() / 100.0F;  // Convert Pa to hPa
   if (isnan(pressure)) {
     debugPrintln("Failed to read pressure", DEBUG_ERROR);
-    return -999.99;  // an impossible value to indicate error
+    return -999.99;  // an obvious value to raise concerns...
   }
   debugPrintf(DEBUG_VERBOSE, "Pressure: %.2f hPa\n", pressure);
   return pressure;

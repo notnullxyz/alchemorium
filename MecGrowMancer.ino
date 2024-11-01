@@ -1,3 +1,9 @@
+/*
+ * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+ * License: GNU GPLv3 (see LICENSE/COPYING file for details)
+ */
+
 #include <Arduino.h>
 
 // Custom module headers
@@ -62,6 +68,7 @@ void setup() {
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms
   // scheduler.addTask(controlRelays, 60000);  // Control relays every minute
 
+  // This is... quite verbose... set to info or something else for deployed use.
   setDebugLevel(DEBUG_VERBOSE);
 }
 

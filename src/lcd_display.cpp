@@ -1,3 +1,9 @@
+/*
+ * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+ * License: GNU GPLv3 (see LICENSE/COPYING file for details)
+ */
+
 #include "lcd_display.h"
 #include <LiquidCrystal_I2C.h>
 #include "serial_debug.h"
@@ -25,6 +31,7 @@ void displayDeviceInfo();
 void updateTimeDisplay();
 void updateMetricDisplay();
 
+// Convenience for everything the specific lcd may need.
 void initLCD() {
   lcd.init();
   lcd.backlight();
@@ -34,6 +41,7 @@ void initLCD() {
   displayDeviceInfo();
 }
 
+// line display wrapper (line number, text)
 void displayLine(int line, const char* text) {
   if (line < 0 || line >= LCD_ROWS) {
     debugPrintln("Invalid LCD line", DEBUG_ERROR);
@@ -45,6 +53,7 @@ void displayLine(int line, const char* text) {
   debugPrintf(DEBUG_VERBOSE, "Displayed on LCD line %d: %s\n", line, text);
 }
 
+// line clear wrapper (line number)
 void clearLine(int line) {
   if (line < 0 || line >= LCD_ROWS) {
     debugPrintln("Invalid LCD line", DEBUG_ERROR);
@@ -56,6 +65,7 @@ void clearLine(int line) {
   }
 }
 
+// centering text on lcd wrapper (line number, text)
 void centerText(int line, const char* text) {
   int textLength = strlen(text);
   int padding = (LCD_COLUMNS - textLength) / 2;
@@ -79,7 +89,7 @@ void updateLCDDisplay() {
   // update time on top row.
   updateTimeDisplay();
 
-  // Update the metric display every UPDATE_INTERVAL
+  // Update the metrics display every UPDATE_INTERVAL
   if (currentTime - lastUpdateTime >= UPDATE_INTERVAL) {
     updateMetricDisplay();
     lastUpdateTime = currentTime;
@@ -88,6 +98,7 @@ void updateLCDDisplay() {
 }
 
 // A test cycle across the 16x2 screen we use - during setup()
+// Hopefully enough to show if any parts of the screen is defective (important for alarms/warnings)
 void selfTest() {
   lcd.clear();
 
@@ -114,7 +125,7 @@ void selfTest() {
   }
 }
 
-// hello there
+// hello there - device announcement after bootup
 void displayDeviceInfo() {
   lcd.clear();
   centerText(0, DEVICE_NAME);
@@ -134,7 +145,7 @@ void updateTimeDisplay() {
   lcd.print(timeStr);
 }
 
-
+// update the display metrics based on state
 void updateMetricDisplay() {
   clearLine(1);
   lcd.setCursor(0, 1);

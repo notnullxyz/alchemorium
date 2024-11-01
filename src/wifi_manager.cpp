@@ -2,8 +2,8 @@
 #include "serial_debug.h"
 #include "config.h"
 
-const unsigned long WIFI_TIMEOUT = 20000;      // 20 seconds timeout for connection
-const unsigned long WIFI_RETRY_DELAY = 60000;  // 1 minute delay before retry
+const unsigned long WIFI_TIMEOUT = 20000; // 20 seconds timeout for connection
+const unsigned long WIFI_RETRY_DELAY = 60000; // 1 minute delay before retry
 
 static char wifi_ssid[32] = "";
 static char wifi_password[64] = "";
@@ -15,7 +15,6 @@ bool initWiFi() {
 
 bool connectWiFi() {
   if (strlen(wifi_ssid) == 0 || strlen(wifi_password) == 0) {
-    displayTemporaryMessage("NOTICE", "No Wifi Config", 2000)
     debugPrintln("WiFi credentials not set", DEBUG_ERROR);
     return false;
   }
@@ -31,12 +30,10 @@ bool connectWiFi() {
 
   if (WiFi.status() != WL_CONNECTED) {
     debugPrintln("WiFi connection failed", DEBUG_ERROR);
-    displayTemporaryMessage("WiFi", "Connection Failed", 2500)
     return false;
   }
 
   debugPrintln("WiFi connected", DEBUG_INFO);
-  displayTemporaryMessage("WiFi", "Connected", 1500)
   debugPrintln(WiFi.localIP().toString().c_str(), DEBUG_INFO);
   return true;
 }
@@ -44,7 +41,6 @@ bool connectWiFi() {
 void checkWiFiConnection() {
   if (WiFi.status() != WL_CONNECTED) {
     debugPrintln("WiFi connection lost, reconnecting...", DEBUG_WARNING);
-    displayTemporaryMessage("WiFi", "Reconnecting...", 2500)
     WiFi.disconnect();
     connectWiFi();
   }

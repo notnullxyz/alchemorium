@@ -6,6 +6,7 @@
 #include "src/rtc_module.h"
 #include "src/serial_debug.h"
 #include "src/scheduler.h"
+#include "src/wifi_manager.h"
 
 // Cooperative multitasking with configurable CPU yield
 const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
@@ -14,7 +15,7 @@ const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
 // NTP Synchronise RTP Interval
 const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL;  // every 24 hours (how bad can it drift?)
 
-const unsigned long LCD_UPDATE_INTERVAL = 1000; // every second
+const unsigned long LCD_UPDATE_INTERVAL = 1000;  // every second
 
 void setup() {
   initDebug();
@@ -35,9 +36,26 @@ void setup() {
     debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
   }
 
+  // Initialise the wifi. See comments inside:
+  if (!initWiFi()) {
+    debugPrintln("Failed to initialize WiFi", DEBUG_ERROR);
+    displayTemporaryMessage("WiFi Init", "Failed", 2000);
+  } else {
+    displayTemporaryMessage("Connecting", "to WiFi...", 1000);
+    // Either we load from config.h or input by serial (for dev)... choose one of:
+    setWiFiCredentials();  // Load from config.h
+    // inputWiFiCredentialsSerial(); // Prompt on Serial interface
+    if (connectWiFi()) {
+      debugPrintln("WiFi connected successfully", DEBUG_INFO);
+      displayTemporaryMessage("WiFi", "Connected", 2000);
+    } else {
+      displayTemporaryMessage("WiFi", "Connect Failed", 2000);
+    }
+  }
+
   // Add tasks to the scheduler
   scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);  // run lcd upd every...
-  scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL); // update the RTC via NTP every...
+  scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);      // update the RTC via NTP every...
 
 
   // And more here...

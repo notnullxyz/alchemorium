@@ -1,3 +1,9 @@
+/*
+ * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+ * License: GNU GPLv3 (see LICENSE/COPYING file for details)
+ */
+
 #include "rtc_module.h"
 #include "serial_debug.h"
 #include "lcd_display.h"

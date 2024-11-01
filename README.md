@@ -129,7 +129,10 @@ TODO
 
 ## License
 
-INFO PENDING
+Make sure that a LICENSE or COPYING file accompanies this code =)
+MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+License: GNU GPLv3 (see LICENSE/COPYING file for details)
 
 ## Contact
 

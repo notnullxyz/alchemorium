@@ -1,5 +1,11 @@
+/*
+ * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
+ * License: GNU GPLv3 (see LICENSE/COPYING file for details)
+ */
+
 #include <stdint.h>
-// lcd_custom_chars.h
+
 #ifndef LCD_CUSTOM_CHARS_H
 #define LCD_CUSTOM_CHARS_H
 

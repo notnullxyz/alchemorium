@@ -16,10 +16,38 @@ The MecGrowMancer project is built on principles of efficiency and optimization,
 6. **I/O Optimization**: Efficient use of hardware interfaces and communication protocols.
 7. **Compiler Optimizations**: Utilizing appropriate flags for size and speed trade-offs.
 8. **Resource-Aware Algorithms**: Implementing algorithms suited for limited computational resources.
-9. **Cost-Effective Hardware**: Selecting components that balance functionality and affordability.
-10. **Real-Time Responsiveness**: Ensuring timely execution of critical tasks.
+9. **Real-Time Responsiveness**: Ensuring timely execution of critical tasks.
+10. **New Arduino/ESP developer friendly**: Readable and welcoming to all levels of the community (with hope)
 
-These strategies aim to create a system that is fast, power-friendly, and economical, while maintaining reliability and functionality.
+These strategies aim to create a system that is fast, power-friendly, and economical, while maintaining reliability and functionality. Whether any of them stand strong, remains to be seen.
+
+## Features
+Features are developed and added as time, weather, farm work and components available allows. Sponsor the project to help this move along =)
+
+### Completed
+- Interface: LCD (16 Character/2 Line)
+- Network: Wireless network connectivity
+- Time: Real Time Clock backed
+- Time: NTP (Network Time) Synchronisation
+- Sensors: Temperature (Bosch BMP280)
+- Sensors: Barometric (Bosch BMP280)
+
+### Planned/Under Development
+- Interface: Web UI
+- Sky sensing (sunny, cloudy, foggy) by RGB ratio/blue ratio
+- Rain|Surface Moisture detection
+- Humidity (environment)
+- Water Flow|Leak Detection|Cut-off
+- Smoke detection
+- Interfacing with building power system
+- Irrigation Scheduling based on various sensor criteria
+- External/Remote sensors (environment)
+- Predator/Intruder detection by PIR
+- CO2 detection (greenhouse/safety)
+- External device controls (pump, greenhouse fans, coop doors, etc) by relay
+- Tank Level Monitoring (for coupling with flow and device controls)
+- Dosing (water amendments, quality etc by possibly, peristaltic pumps and flow measurements)
+- Data logging/Data export
 
 ## Hardware Components
 

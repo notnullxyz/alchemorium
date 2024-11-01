@@ -68,6 +68,7 @@ void setup() {
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms
   // scheduler.addTask(controlRelays, 60000);  // Control relays every minute
 
+  // This is... quite verbose... set to info or something else for deployed use.
   setDebugLevel(DEBUG_VERBOSE);
 }
 

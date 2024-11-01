@@ -8,8 +8,8 @@
 #include "serial_debug.h"
 #include "config.h"
 
-const unsigned long WIFI_TIMEOUT = 20000; // 20 seconds timeout for connection
-const unsigned long WIFI_RETRY_DELAY = 60000; // 1 minute delay before retry
+const unsigned long WIFI_TIMEOUT = 20000;      // 20 seconds timeout for connection
+const unsigned long WIFI_RETRY_DELAY = 60000;  // 1 minute delay before retry
 
 static char wifi_ssid[32] = "";
 static char wifi_password[64] = "";

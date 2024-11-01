@@ -8,6 +8,7 @@
 #include "serial_debug.h"
 #include "lcd_display.h"
 
+// RTC Pins - DS1302 in this case
 const int DAT = 26;  // DAT
 const int CLK = 25;  // CLK
 const int RST = 27;  // RST
@@ -49,6 +50,7 @@ void syncRTCWithNTP() {
   }
 
   // pre-processor condition: if ntp servers defined in config.h... else defaults
+  // Again, please see README about NTP servers. Don't use anything you can put your paws on.
   #if defined(NTP_SERVER1) && defined(NTP_SERVER2)
     configTime(0, 0, NTP_SERVER1, NTP_SERVER2);
     debugPrintln("Using custom NTP servers from config", DEBUG_INFO);

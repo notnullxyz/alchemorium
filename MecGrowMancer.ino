@@ -12,7 +12,7 @@ const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
 const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
 
 // NTP Synchronise RTP Interval
-const unsigned long NTP_SYNC_INTERVAL = 12 * 60 * 60 * 1000UL; // every 12 hours (in millis)
+const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL;  // every 24 hours (how bad can it drift?)
 
 const unsigned long LCD_UPDATE_INTERVAL = 1000; // every second
 

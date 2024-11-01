@@ -4,9 +4,9 @@
 #include "lcd_custom_chars.h"
 #include "bmp280_sensor.h"
 #include <time.h>
-#include "src/rtc_module.h"
+#include "rtc_module.h"
 
-// Initialize the library with the address and cols/rows
+// Init the lcd lib with the address and cols/rows
 LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
 
 enum MetricState {
@@ -63,6 +63,14 @@ void centerText(int line, const char* text) {
   clearLine(line);
   lcd.setCursor(padding, line);
   lcd.print(text);
+}
+
+// Temporary notices (like "wifi connecting...")
+void displayTemporaryMessage(const char* line1, const char* line2, unsigned long duration) {
+  lcd.clear();
+  centerText(0, line1);
+  centerText(1, line2);
+  delay(duration);
 }
 
 void updateLCDDisplay() {

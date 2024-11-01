@@ -67,6 +67,26 @@ The MecGrowMancer firmware is developed using the Arduino IDE with ESP32 support
 - Sensor data processing and display
 - Debug output via serial communication
 
+### Config.h
+
+Create a config.h in the root of the source directory. This file is not source controlled, and listed in .gitignore
+The purpose of config.h is to store common variables that may be sensitive to check in to git. 
+
+The mandatory config.h contents are:
+
+```cpp
+// config.h
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// WiFi credentials
+#define WIFI_SSID "your wifi ssd"
+#define WIFI_PASSWORD "j00r passwird"
+
+#endif
+```
+
+
 ## Setup and Installation
 
 This will be documented in due time [after prototyping]

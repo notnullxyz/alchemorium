@@ -37,7 +37,7 @@ void syncRTCWithNTP() {
   debugPrintln("Syncing RTC with NTP...", DEBUG_INFO);
 
   if (WiFi.status() != WL_CONNECTED) {
-    displayTemporaryMessage("NTP: Sync Fail", "No WiFi", 3000)
+    displayTemporaryMessage("NTP: Sync Fail", "No WiFi", 3000);
       debugPrintln("WiFi not connected. Cannot sync with NTP.", DEBUG_ERROR);
     return;
   }
@@ -54,7 +54,7 @@ void syncRTCWithNTP() {
   time_t now;
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
-    displayTemporaryMessage("NTP: Sync Fail", "From NTP Server", 3000)
+    displayTemporaryMessage("NTP: Sync Fail", "From NTP Server", 3000);
       debugPrintln("Failed to obtain time from NTP", DEBUG_ERROR);
     return;
   }
@@ -71,5 +71,5 @@ void syncRTCWithNTP() {
 
   setRTCTime(ntpTime);
   debugPrintln("RTC synced with NTP successfully", DEBUG_INFO);
-  displayTemporaryMessage("NTP: Sync OK", "Time Adjusted", 2000)
+  displayTemporaryMessage("NTP: Sync OK", "Time Adjusted", 2000);
 }

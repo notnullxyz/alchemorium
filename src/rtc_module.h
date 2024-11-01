@@ -3,6 +3,7 @@
 
 #include <ThreeWire.h>
 #include <RtcDS1302.h>
+#include <WiFi.h>
 
 extern RtcDS1302<ThreeWire> Rtc;
 

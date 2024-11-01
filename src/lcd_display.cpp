@@ -116,21 +116,6 @@ void displayDeviceInfo() {
   lcd.clear();
 }
 
-// Get and dsplay current time.
-// TODO RTC
-// void updateTimeDisplay() {
-//   time_t now;
-//   struct tm timeinfo;
-//   time(&now);
-//   localtime_r(&now, &timeinfo);
-
-//   char timeStr[17];
-//   strftime(timeStr, sizeof(timeStr), "%H:%M:%S %d/%m", &timeinfo);
-
-//   lcd.setCursor(0, 0);
-//   lcd.print(timeStr);
-// }
-
 // update time for the lcd, using a call to RTC
 void updateTimeDisplay() {
   RtcDateTime now = getCurrentTime();

@@ -30,11 +30,11 @@ The core of the MecGrowMancer system is built around the ESP32 DOIT DevKit, prov
 ### LCD Display
 
 1602 in I2C mode:
-
-VCC	: 5V
-GND : GND
-SDA : GPIO 21
-SCL : GPIO 22
+- **Connections**:
+  - VCC	: 5V
+  - GND : GND
+  - SDA : GPIO 21
+  - SCL : GPIO 22
 
 ### BMP280 Temperature and Pressure Sensor
 

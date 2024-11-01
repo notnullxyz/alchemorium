@@ -80,4 +80,3 @@ void inputWiFiCredentialsSerial() {
   setWiFiCredentials(ssid.c_str(), password.c_str());
 }
 */
-

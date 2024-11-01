@@ -34,29 +34,36 @@ void setup() {
     delay(2000);  // Show message for 2 seconds
   };
 
-  if (!initRTC()) {
-    debugPrintln("Failed to initialize RTC", DEBUG_ERROR);
-  }
-
   if (!initTempAndPressureSystem(displayOnLCD)) {
     debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
+    displayTemporaryMessage("Sensors Init", "Temp/Pres Fail", 1500);
   }
 
   // Initialise the wifi. See comments inside:
   if (!initWiFi()) {
     debugPrintln("Failed to initialize WiFi", DEBUG_ERROR);
-    displayTemporaryMessage("WiFi Init", "Failed", 2000);
+    displayTemporaryMessage("WiFi Init", "Failed", 1500);
   } else {
-    displayTemporaryMessage("Connecting", "to WiFi...", 1000);
+    displayTemporaryMessage("Connecting", "to WiFi...", 1500);
     // Either we load from config.h or input by serial (for dev)... choose one of:
     setWiFiCredentials();  // Load from config.h
     // inputWiFiCredentialsSerial(); // Prompt on Serial interface
     if (connectWiFi()) {
       debugPrintln("WiFi connected successfully", DEBUG_INFO);
-      displayTemporaryMessage("WiFi", "Connected", 2000);
+      displayTemporaryMessage("WiFi", "Connected", 1500);
     } else {
-      displayTemporaryMessage("WiFi", "Connect Failed", 2000);
+      displayTemporaryMessage("WiFi", "Connect Failed", 1500);
     }
+  }
+
+  // Initialise the real time clock. 
+  // Doing this after wifi. If wifi available, we can do a bootup sync with NTP, too.
+  if (!initRTC()) {
+    debugPrintln("Failed to initialize RTC", DEBUG_ERROR);
+    displayTemporaryMessage("RTC Init", "Failed", 1000);
+  } else {
+    syncRTCWithNTP();
+    displayTemporaryMessage("RTC Init", "OK.", 1000);
   }
 
   // Add tasks to the scheduler

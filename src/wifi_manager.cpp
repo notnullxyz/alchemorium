@@ -57,10 +57,27 @@ bool isWiFiConnected() {
 }
 
 // Set the Wifi Creds from the values in config.h
-void setWiFiCredentials() {
-  strncpy(wifi_ssid, WIFI_SSID, sizeof(wifi_ssid));
-  strncpy(wifi_password, WIFI_PASSWORD, sizeof(wifi_password));
+bool setWiFiCredentials() {
+    const char* ssid = getConfig("WIFI_SSID");
+    const char* password = getConfig("WIFI_PASSWORD");
+
+    if (ssid && password) {
+        strncpy(wifi_ssid, ssid, sizeof(wifi_ssid) - 1);
+        wifi_ssid[sizeof(wifi_ssid) - 1] = '\0';  // Ensure null-termination
+        
+        strncpy(wifi_password, password, sizeof(wifi_password) - 1);
+        wifi_password[sizeof(wifi_password) - 1] = '\0';  // Ensure null-termination
+        
+        debugPrintln("WiFi credentials set from config", DEBUG_INFO);
+        return true;
+    } else {
+        debugPrintln("WiFi credentials not found in config", DEBUG_ERROR);
+        wifi_ssid[0] = '\0';
+        wifi_password[0] = '\0';
+        return false;
+    }
 }
+
 
 // This version of setWifiCredentials() is for calling from inputWifiCredentialsSerial()
 /*

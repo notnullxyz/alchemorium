@@ -42,21 +42,26 @@ void setup() {
   // Initialise the wifi. See comments inside:
   if (!initWiFi()) {
     debugPrintln("Failed to initialize WiFi", DEBUG_ERROR);
-    displayTemporaryMessage("WiFi Init", "Failed", 1500);
+    displayTemporaryMessage("WiFi Init", "Failed", 1000);
   } else {
-    displayTemporaryMessage("Connecting", "to WiFi...", 1500);
+    displayTemporaryMessage("Connecting", "to WiFi...", 1000);
+    
     // Either we load from config.h or input by serial (for dev)... choose one of:
-    setWiFiCredentials();  // Load from config.h
-    // inputWiFiCredentialsSerial(); // Prompt on Serial interface
-    if (connectWiFi()) {
-      debugPrintln("WiFi connected successfully", DEBUG_INFO);
-      displayTemporaryMessage("WiFi", "Connected", 1500);
+    if (setWiFiCredentials()) {  // Set creds from config.h
+      // inputWiFiCredentialsSerial(); // Prompt on Serial interface
+      
+      if (connectWiFi()) {
+        debugPrintln("WiFi connected successfully", DEBUG_INFO);
+        displayTemporaryMessage("WiFi", "Connected", 700);
+      } else {
+        displayTemporaryMessage("WiFi", "Connect Failed", 1200);
+      }
     } else {
-      displayTemporaryMessage("WiFi", "Connect Failed", 1500);
+      displayTemporaryMessage("WiFi", "No credentials in config", 1200);
     }
   }
 
-  // Initialise the real time clock. 
+  // Initialise the real time clock.
   // Doing this after wifi. If wifi available, we can do a bootup sync with NTP, too.
   if (!initRTC()) {
     debugPrintln("Failed to initialize RTC", DEBUG_ERROR);
@@ -69,7 +74,7 @@ void setup() {
   // Add tasks to the scheduler
   scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);  // run lcd upd every...
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);      // update the RTC via NTP every...
-  scheduler.addTask(checkWiFiConnection, 60000);          // checl wifi every minute
+  scheduler.addTask(checkWiFiConnection, 60000);             // checl wifi every minute
 
   // And more here...
   // scheduler.addTask(updateWebServer, 100);  // Update web server every 100ms

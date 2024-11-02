@@ -43,31 +43,39 @@ void setRTCTime(const RtcDateTime& dt) {
 void syncRTCWithNTP() {
   debugPrintln("Syncing RTC with NTP...", DEBUG_INFO);
 
+  // no wifi connected? No time for you. S7/E6
   if (WiFi.status() != WL_CONNECTED) {
     displayTemporaryMessage("NTP: Sync Fail", "No WiFi", 3000);
-      debugPrintln("WiFi not connected. Cannot sync with NTP.", DEBUG_ERROR);
+    debugPrintln("WiFi not connected. Cannot sync with NTP.", DEBUG_ERROR);
     return;
   }
 
   // Set timezone (standard tz string)
-  setenv("TZ", TZ_STRING, 1);
-  tzset();
+  const char* timezone = getConfig("TZ_STRING");
+  if (timezone) {
+    debugPrintln("Found TZ_STRING in config, so using that");
+    setenv("TZ", timezone, 1);
+    tzset();
+  } else {
+    debugPrintln("TZ_STRING not found. Not doing setenv for timezone");
+  }
 
-  // pre-processor condition: if ntp servers defined in config.h... else defaults
-  // Again, please see README about NTP servers. Don't use anything you can put your paws on.
-  #if defined(NTP_SERVER1) && defined(NTP_SERVER2)
-    configTime(0, 0, NTP_SERVER1, NTP_SERVER2);
+  // IMPORTANT: please see README about NTP servers. Don't use anything you can put your paws on.
+  const char* ntp_server1 = getConfig("NTP_SERVER1");
+  const char* ntp_server2 = getConfig("NTP_SERVER2");
+  if (ntp_server1 && ntp_server2) {
+    configTime(0, 0, ntp_server1, ntp_server2);
     debugPrintln("Using custom NTP servers from config", DEBUG_INFO);
-  #else
+  } else {
     configTime(0, 0, "pool.ntp.org", "time.nist.gov");
     debugPrintln("Using default NTP servers in rtc_module", DEBUG_INFO);
-  #endif
+  }
 
   time_t now;
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
     displayTemporaryMessage("NTP: Sync Fail", "From NTP Server", 3000);
-      debugPrintln("Failed to obtain time from NTP", DEBUG_ERROR);
+    debugPrintln("Failed to obtain time from NTP", DEBUG_ERROR);
     return;
   }
 

@@ -14,7 +14,7 @@ bool initWiFi();
 bool connectWiFi();
 void checkWiFiConnection();
 bool isWiFiConnected();
-void setWiFiCredentials();
+bool setWiFiCredentials();
 
 // not used, unless enabled in wifi_manager.cpp:
 //void setWiFiCredentials(const char* ssid, const char* password);

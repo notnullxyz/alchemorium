@@ -49,6 +49,10 @@ void syncRTCWithNTP() {
     return;
   }
 
+  // Set timezone (standard tz string)
+  setenv("TZ", TZ_STRING, 1);
+  tzset();
+
   // pre-processor condition: if ntp servers defined in config.h... else defaults
   // Again, please see README about NTP servers. Don't use anything you can put your paws on.
   #if defined(NTP_SERVER1) && defined(NTP_SERVER2)

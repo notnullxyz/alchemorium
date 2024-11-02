@@ -1,15 +1,29 @@
 // config.h
 #ifndef CONFIG_H
 #define CONFIG_H
+#include <pgmspace.h>
 
-// WiFi credentials
-#define WIFI_SSID "woodhouse"
-#define WIFI_PASSWORD "zingerwings"
+/*
+  Configuration Constants : Stored in PROGMEM
+  Delcare/Define new config constants here AND amend config.cpp
 
-// Custom NTP servers. Optional. See README.md please!
-#define NTP_SERVER1 "0.za.pool.ntp.org"  // defaults for my ZA pool
-#define NTP_SERVER2 "1.za.pool.ntp.org"
+  A note on mem/buffer:
+  I hardcoded a 24 byte static buffer into config.cpp.
+  If you're going to be using super long strings, change it to 32bytes or whatever.
+*/
 
-#define TZ_STRING "SAST-2"  // standard TZ String 
+// WiFi Network
+const char WIFI_SSID[] PROGMEM = "wood";
+const char WIFI_PASSWORD[] PROGMEM = "wings";
+
+// NTP Servers
+const char NTP_SERVER1[] PROGMEM = "0.za.pool.ntp.org";
+const char NTP_SERVER2[] PROGMEM = "1.za.pool.ntp.org";
+
+// System Timezone
+const char TZ_STRING[] PROGMEM = "SAST-2";
+
+// getter for configuration constants
+const char* getConfig(const char* key);
 
 #endif

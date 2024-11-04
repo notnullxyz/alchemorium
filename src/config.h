@@ -13,8 +13,8 @@
 */
 
 // WiFi Network
-const char WIFI_SSID[] PROGMEM = "wood";
-const char WIFI_PASSWORD[] PROGMEM = "wings";
+const char WIFI_SSID[] PROGMEM = "woodhouse";
+const char WIFI_PASSWORD[] PROGMEM = "zingerwings";
 
 // NTP Servers
 const char NTP_SERVER1[] PROGMEM = "0.za.pool.ntp.org";

@@ -4,8 +4,6 @@
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
 
-#include <Arduino.h>
-
 // Custom module headers
 #include "src/lcd_display.h"
 #include "src/bmp280_sensor.h"
@@ -25,22 +23,22 @@ void setup() {
   initLCD();
 
   if (!initTempAndPressureSystem()) {
-    debugPrintln("Failed to initialize BMP280", DEBUG_ERROR);
-    displayTemporaryMessage("Sensors Init", "Temp/Pres Fail", 1500);
+    debugPrintln("main: initTempAndPressureSystem() fail", DEBUG_ERROR);
+    displayTemporaryMessage("Sensors Init", "Temp/Pres Fail", 1000);
   }
 
   // Initialise the wifi. See comments inside:
   if (!initWiFi()) {
-    debugPrintln("Failed to initialize WiFi", DEBUG_ERROR);
+    debugPrintln("main: initWiFi() fail", DEBUG_ERROR);
     displayTemporaryMessage("WiFi Init", "Failed", 1000);
   } else {
     // Update the LCD to show the connection status immediately
-    displayTemporaryMessage("Connecting to", "WiFi...", 2000);
+    displayTemporaryMessage("Connecting to", "WiFi...", 800);
 
     // Either we load from config.h or input by serial (for dev)... choose one of:
     if (setWiFiCredentials()) {  // Set creds from config.h
       if (connectWiFi()) {
-        debugPrintln("WiFi connected successfully", DEBUG_INFO);
+        debugPrintln("main: connectWiFi success", DEBUG_INFO);
         displayTemporaryMessage("WiFi", "Connected", 700);
       } else {
         displayTemporaryMessage("WiFi", "Connect Failed", 1200);
@@ -52,7 +50,7 @@ void setup() {
 
   // Initialise the real time clock.
   if (!initRTC()) {
-    debugPrintln("Failed to initialize RTC", DEBUG_ERROR);
+    debugPrintln("main: initRTC() fail", DEBUG_ERROR);
     displayTemporaryMessage("RTC Init", "Failed", 1000);
   } else {
     syncRTCWithNTP();

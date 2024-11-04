@@ -19,13 +19,13 @@ bool initRTC() {
 
   Rtc.Begin();
   if (!Rtc.IsDateTimeValid()) {
-    debugPrintln("RTC lost confidence in the DateTime!", DEBUG_WARNING);
+    debugPrintln("RTC: lost confidence in DateTime", DEBUG_WARNING);
     // set a default, compile time.
     RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
     Rtc.SetDateTime(compiled);
   }
   if (!Rtc.GetIsRunning()) {
-    debugPrintln("RTC not running, so starting now", DEBUG_INFO);
+    debugPrintln("RTC: Not running. Starting now", DEBUG_INFO);
     Rtc.SetIsRunning(true);
   }
   return true;
@@ -41,23 +41,23 @@ void setRTCTime(const RtcDateTime& dt) {
 
 // When connected to wifi, we can correct drift from network time
 void syncRTCWithNTP() {
-  debugPrintln("Syncing RTC with NTP...", DEBUG_INFO);
+  debugPrintln("RTC: Syncing RTC with NTP", DEBUG_INFO);
 
   // no wifi connected? No time for you. S7/E6
   if (WiFi.status() != WL_CONNECTED) {
     displayTemporaryMessage("NTP: Sync Fail", "No WiFi", 3000);
-    debugPrintln("WiFi not connected. Cannot sync with NTP.", DEBUG_ERROR);
+    debugPrintln("RTC: no WiFi = no NTP sync.", DEBUG_ERROR);
     return;
   }
 
   // Set timezone (standard tz string)
   const char* timezone = getConfig("TZ_STRING");
   if (timezone) {
-    debugPrintln("Found TZ_STRING in config, so using that");
+    debugPrintln("RTC: Found TZ_STRING in config, using that");
     setenv("TZ", timezone, 1);
     tzset();
   } else {
-    debugPrintln("TZ_STRING not found. Not doing setenv for timezone");
+    debugPrintln("RTC: TZ_STRING not found. Not doing setenv(TZ...");
   }
 
   // IMPORTANT: please see README about NTP servers. Don't use anything you can put your paws on.
@@ -65,17 +65,17 @@ void syncRTCWithNTP() {
   const char* ntp_server2 = getConfig("NTP_SERVER2");
   if (ntp_server1 && ntp_server2) {
     configTime(0, 0, ntp_server1, ntp_server2);
-    debugPrintln("Using custom NTP servers from config", DEBUG_INFO);
+    debugPrintln("RTC: Using custom NTP servers from config", DEBUG_INFO);
   } else {
     configTime(0, 0, "pool.ntp.org", "time.nist.gov");
-    debugPrintln("Using default NTP servers in rtc_module", DEBUG_INFO);
+    debugPrintln("RTC: Using hardcoded default NTP servers in rtc_module", DEBUG_INFO);
   }
 
   time_t now;
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
     displayTemporaryMessage("NTP: Sync Fail", "From NTP Server", 3000);
-    debugPrintln("Failed to obtain time from NTP", DEBUG_ERROR);
+    debugPrintln("RTC: Failed to obtain time from NTP", DEBUG_ERROR);
     return;
   }
 
@@ -90,6 +90,6 @@ void syncRTCWithNTP() {
     timeinfo.tm_sec);
 
   setRTCTime(ntpTime);
-  debugPrintln("RTC synced with NTP successfully", DEBUG_INFO);
+  debugPrintln("RTC: NTP sync successfull", DEBUG_INFO);
   displayTemporaryMessage("NTP: Sync OK", "Time Adjusted", 2000);
 }

@@ -24,11 +24,11 @@ bool initWiFi() {
 
 bool connectWiFi() {
   if (strlen(wifi_ssid) == 0 || strlen(wifi_password) == 0) {
-    debugPrintln("WiFi credentials not set", DEBUG_ERROR);
+    debugPrintln("wifi: credentials not set", DEBUG_ERROR);
     return false;
   }
 
-  debugPrintln("Connecting to WiFi...", DEBUG_INFO);
+  debugPrintln("wifi: Connecting", DEBUG_INFO);
   WiFi.begin(wifi_ssid, wifi_password);
   
   // Update the LCD to show the connection status immediately
@@ -47,11 +47,11 @@ bool connectWiFi() {
   }
 
   if (!connected) {
-    debugPrintln("WiFi connection failed", DEBUG_ERROR);
+    debugPrintln("wifi: connection failed", DEBUG_ERROR);
     return false;
   }
 
-  debugPrintln("WiFi connected", DEBUG_INFO);
+  debugPrint("wifi: connected. IP -> ", DEBUG_INFO);
   debugPrintln(WiFi.localIP().toString().c_str(), DEBUG_INFO);
   return true;
 }
@@ -59,7 +59,7 @@ bool connectWiFi() {
 // Check wifi, and if we reconnect, do NTP sync (but also, only once a day)
 void checkWiFiConnection() {
     if (WiFi.status() != WL_CONNECTED) {
-        debugPrintln("WiFi connection lost, reconnecting...", DEBUG_WARNING);
+        debugPrintln("wifi: connection lost. Reconnecting...", DEBUG_WARNING);
         WiFi.disconnect();
         connectWiFi();
     } else {
@@ -90,10 +90,10 @@ bool setWiFiCredentials() {
     // free up the dyn alloc'd string from getConfig()
     free(ssid);
     free(password);
-    debugPrintln("WiFi credentials set from config", DEBUG_INFO);
+    debugPrintln("wifi: credentials set from config", DEBUG_INFO);
     return true;
   } else {
-    debugPrintln("WiFi credentials not found in config", DEBUG_ERROR);
+    debugPrintln("wifi: credentials not found in config", DEBUG_ERROR);
     wifi_ssid[0] = '\0';
     wifi_password[0] = '\0';
     return false;

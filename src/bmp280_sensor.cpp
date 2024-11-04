@@ -10,14 +10,12 @@
 Adafruit_BMP280 bmp;
 
 bool initTempAndPressureSystem() {
-  debugPrintln("Initializing BMP280...", DEBUG_INFO);
+  debugPrintln("bmp280_sensor: init", DEBUG_INFO);
 
   if (!bmp.begin(0x77, BMP280_CHIPID)) {
-    debugPrintln("initTempAndPressureSystem(): Valid BMP280 Not Detected", DEBUG_ERROR);
+    debugPrintln("bmp280_sensor: no valid sensor detected", DEBUG_ERROR);
     return false;
   }
-
-  debugPrintln("initTempAndPressureSystem(): OK", DEBUG_INFO);
 
   // Sensor filters and sampling... chgeck the datasheet.
   bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,      // Operating Mode
@@ -26,27 +24,26 @@ bool initTempAndPressureSystem() {
                   Adafruit_BMP280::FILTER_X16,       // Filtering
                   Adafruit_BMP280::STANDBY_MS_500);  // Standby time
 
-  debugPrintln("initTempAndPressureSystem(): BMP280 Init OK", DEBUG_VERBOSE);
-
+  debugPrintln("bmp280_sensor: initTempAndPressureSystem() OK", DEBUG_INFO);
   return true;
 }
 
 float readTemperature() {
   float temp = bmp.readTemperature();
   if (isnan(temp)) {
-    debugPrintln("Failed to read temperature", DEBUG_ERROR);
+    debugPrintln("bmp28_sensor: failed to read temperature", DEBUG_ERROR);
     return -999.99;  // an obvious value to raise concerns...
   }
-  debugPrintf(DEBUG_VERBOSE, "Temperature: %.2f °C\n", temp);
+  debugPrintf(DEBUG_VERBOSE, "bmp280_sensor: Temperature: %.2f °C\n", temp);
   return temp;
 }
 
 float readPressure() {
   float pressure = bmp.readPressure() / 100.0F;  // Convert Pa to hPa
   if (isnan(pressure)) {
-    debugPrintln("Failed to read pressure", DEBUG_ERROR);
+    debugPrintln("bmp28_sensor: failed to read pressure", DEBUG_ERROR);
     return -999.99;  // an obvious value to raise concerns...
   }
-  debugPrintf(DEBUG_VERBOSE, "Pressure: %.2f hPa\n", pressure);
+  debugPrintf(DEBUG_VERBOSE, "bmp280_sensor: Pressure: %.2f hPa\n", pressure);
   return pressure;
 }

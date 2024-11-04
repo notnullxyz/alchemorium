@@ -35,7 +35,7 @@ void updateMetricDisplay();
 void initLCD() {
   lcd.init();
   lcd.backlight();
-  debugPrintln("LCD initialized. Starting self-test and greeting.", DEBUG_INFO);
+  debugPrintln("lcd: initialized. Starting self-test/intro", DEBUG_INFO);
   initCustomChars(lcd);
   selfTest();
   displayDeviceInfo();
@@ -44,7 +44,7 @@ void initLCD() {
 // line display wrapper (line number, text)
 void displayLine(int line, const char* text) {
   if (line < 0 || line >= LCD_ROWS) {
-    debugPrintln("Invalid LCD line", DEBUG_ERROR);
+    debugPrintln("lcd: invalid LCD line", DEBUG_ERROR);
     return;
   }
   clearLine(line);
@@ -56,7 +56,7 @@ void displayLine(int line, const char* text) {
 // line clear wrapper (line number)
 void clearLine(int line) {
   if (line < 0 || line >= LCD_ROWS) {
-    debugPrintln("Invalid LCD line", DEBUG_ERROR);
+    debugPrintln("lcd: Invalid LCD line", DEBUG_ERROR);
     return;
   }
   lcd.setCursor(0, line);
@@ -111,7 +111,7 @@ void selfTest() {
     delay(22);
   }
 
-  delay(500);  // Hold the display filled for a moment
+  delay(700);  // Hold the display filled for a moment
 
   // Roll off: Clear the screen
   for (int i = 0; i < LCD_COLUMNS; ++i) {

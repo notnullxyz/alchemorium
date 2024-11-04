@@ -17,6 +17,7 @@ void initDebug(long baudRate) {
 
 void setDebugLevel(DebugLevel level) {
   currentDebugLevel = level;
+
 }
 
 void debugPrint(const char* message, DebugLevel level) {

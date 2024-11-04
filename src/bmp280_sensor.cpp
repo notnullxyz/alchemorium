@@ -9,14 +9,11 @@
 
 Adafruit_BMP280 bmp;
 
-bool initTempAndPressureSystem(void (*displayCallback)(const char*, const char*)) {
+bool initTempAndPressureSystem() {
   debugPrintln("Initializing BMP280...", DEBUG_INFO);
 
   if (!bmp.begin(0x77, BMP280_CHIPID)) {
     debugPrintln("initTempAndPressureSystem(): Valid BMP280 Not Detected", DEBUG_ERROR);
-    if (displayCallback) {
-      displayCallback("BMP280 Init", "Failed!");
-    }
     return false;
   }
 

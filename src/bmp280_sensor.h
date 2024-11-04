@@ -10,7 +10,7 @@
 #include <Adafruit_BMP280.h>
 
 extern Adafruit_BMP280 bmp;
-bool initTempAndPressureSystem(void (*displayCallback)(const char*, const char*) = nullptr);
+bool initTempAndPressureSystem();
 
 bool initTempAndPressureSystem();
 float readTemperature();

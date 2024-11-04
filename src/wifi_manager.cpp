@@ -58,24 +58,27 @@ bool isWiFiConnected() {
 
 // Set the Wifi Creds from the values in config.h
 bool setWiFiCredentials() {
-    const char* ssid = getConfig("WIFI_SSID");
-    const char* password = getConfig("WIFI_PASSWORD");
+  char* ssid = getConfig("WIFI_SSID");
+  char* password = getConfig("WIFI_PASSWORD");
 
-    if (ssid && password) {
-        strncpy(wifi_ssid, ssid, sizeof(wifi_ssid) - 1);
-        wifi_ssid[sizeof(wifi_ssid) - 1] = '\0';  // Ensure null-termination
-        
-        strncpy(wifi_password, password, sizeof(wifi_password) - 1);
-        wifi_password[sizeof(wifi_password) - 1] = '\0';  // Ensure null-termination
-        
-        debugPrintln("WiFi credentials set from config", DEBUG_INFO);
-        return true;
-    } else {
-        debugPrintln("WiFi credentials not found in config", DEBUG_ERROR);
-        wifi_ssid[0] = '\0';
-        wifi_password[0] = '\0';
-        return false;
-    }
+  if (ssid && password) {
+    strncpy(wifi_ssid, ssid, sizeof(wifi_ssid) - 1);
+    wifi_ssid[sizeof(wifi_ssid) - 1] = '\0';  // Ensure null-termination
+
+    strncpy(wifi_password, password, sizeof(wifi_password) - 1);
+    wifi_password[sizeof(wifi_password) - 1] = '\0';  // Ensure null-termination
+
+    // free up the dyn alloc'd string from getConfig()
+    free(ssid);
+    free(password);
+    debugPrintln("WiFi credentials set from config", DEBUG_INFO);
+    return true;
+  } else {
+    debugPrintln("WiFi credentials not found in config", DEBUG_ERROR);
+    wifi_ssid[0] = '\0';
+    wifi_password[0] = '\0';
+    return false;
+  }
 }
 
 

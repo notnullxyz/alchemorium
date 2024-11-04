@@ -24,6 +24,5 @@ const char NTP_SERVER2[] PROGMEM = "1.za.pool.ntp.org";
 const char TZ_STRING[] PROGMEM = "SAST-2";
 
 // getter for configuration constants
-const char* getConfig(const char* key);
 
 #endif

@@ -7,8 +7,6 @@
 #include "config.h"
 #include <string.h>
 
-static char buffer[24];
-
 // Retrieve the configuration value from config.h
 #include "config.h"
 #include <string.h>
@@ -34,7 +32,6 @@ char* getConfig(const char* key) {
   if (value != NULL) {
     char* result = strdup(value);
     if (result == NULL) {
-      Serial.println("Error: Memory allocation failed in getConfig()");
       return NULL;
     }
     return result;

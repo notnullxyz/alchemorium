@@ -1,2 +1,3 @@
 config.h
 .theia/launch.json
+src/config.h

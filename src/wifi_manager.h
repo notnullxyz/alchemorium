@@ -9,6 +9,11 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include "rtc_module.h"
+
+// Globals to keep track of NTP timings - closely tied together.
+extern unsigned long lastNTPTime;
+const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL; // 24hrs
 
 bool initWiFi();
 bool connectWiFi();

@@ -9,7 +9,6 @@
 #ifndef LCD_CUSTOM_CHARS_H
 #define LCD_CUSTOM_CHARS_H
 
-#include <LiquidCrystal.h>
 #include <string.h>  // For memcpy
 
 // Define custom character codes

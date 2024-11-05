@@ -1,3 +1,4 @@
-config.h
 .theia/launch.json
-src/config.h
+.vscode/
+.pio/
+

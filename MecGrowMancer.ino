@@ -4,6 +4,9 @@
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
 
+// converting from ino to cpp - need this. pio says so.
+#include <Arduino.h>
+
 // Custom module headers
 #include "src/lcd_display.h"
 #include "src/bmp280_sensor.h"
@@ -12,7 +15,7 @@
 #include "src/scheduler.h"
 #include "src/wifi_manager.h"
 
-// Cooperative multitasking with configurable CPU yield
+// Cooperative multitasking with configurable CPU yield - keeping this here for now.
 const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
 const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
 

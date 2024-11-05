@@ -8,12 +8,12 @@
 #include <Arduino.h>
 
 // Custom module headers
-#include "src/lcd_display.h"
-#include "src/bmp280_sensor.h"
-#include "src/rtc_module.h"
-#include "src/serial_debug.h"
-#include "src/scheduler.h"
-#include "src/wifi_manager.h"
+#include "lcd_display.h"
+#include "bmp280_sensor.h"
+#include "rtc_module.h"
+#include "serial_debug.h"
+#include "scheduler.h"
+#include "wifi_manager.h"
 
 // Cooperative multitasking with configurable CPU yield - keeping this here for now.
 const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle

@@ -155,7 +155,7 @@ void updateMetricDisplay() {
       lcd.write(byte(CHAR_THERMOMETER));
       lcd.print(" ");
       lcd.print(readTemperature());
-      lcd.print("C");
+      lcd.write(byte(CHAR_CELSIUS));
       break;
     case HUMIDITY:
       lcd.write(byte(CHAR_HUMIDITY));

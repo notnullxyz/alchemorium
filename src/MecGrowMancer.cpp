@@ -51,6 +51,8 @@ void setup() {
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
   scheduler.addTask(checkWiFiConnection, 60000);
 
+  scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
+
   setDebugLevel(DEBUG_VERBOSE);
 }
 

@@ -12,19 +12,19 @@
 #include <Arduino.h>
 
 // Custom module headers
+#include "config.h"
 #include "lcd_display.h"
 #include "bmp280_sensor.h"
 #include "rtc_module.h"
 #include "serial_debug.h"
 #include "scheduler.h"
 #include "wifi_manager.h"
+#include "sensor_data.h"
 
 // Cooperative multitasking with configurable CPU yield
 // While not really x% (depends on other things happening in the loop) it reasonably helps with reduction for infrequent tasks.
 const uint8_t CPU_THROTTLE_PERCENTAGE = 5;  // 5% throttle
 const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
 
-// The period between LCD updates for known metrics (for the "dashboard" idle mode)
-// in milliseconds.
-const unsigned long LCD_UPDATE_INTERVAL = 1000;
+
 

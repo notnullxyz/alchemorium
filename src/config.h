@@ -30,9 +30,18 @@ char* getConfig(const char* key);
  * LDR - Light Level Measurement Section
  */
 #define LDR_INTERVAL 5000               // how often in ms, to do light measurements
-// LDR - Filtering. 
-#define LDR_FILTER_ALPHA 0.2            // how quickly to respond to change. Lower = smoother, but slower
-#define MAX_CHANGE 100                  // prevent spikes by capping maximum change (in filtered values) between readings
-#define DRASTIC_CHANGE_THRESHOLD 500    // what constitutes a drastic change? If raw vs filtered values exceed this = it's considered significant
+#define LDR_FILTER_ALPHA 0.2            // FILTERING: how quickly to respond to change. Lower = smoother, but slower
+#define MAX_CHANGE 100                  // FILTERING: prevent spikes by capping maximum change (in filtered values) between readings
+#define DRASTIC_CHANGE_THRESHOLD 500    // FILTERING: what constitutes a drastic change? If raw vs filtered values exceed this = it's considered significant
+
+/**
+ * LCD Section
+ */
+#define LCD_UPDATE_INTERVAL 1000   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
+
+/**
+ * Temperature and Pressure Section
+ */
+#define SENSOR_UPDATE_TMPPRES_INT 10000  // update interval for temperature and pressure sensors. Use discretion.
 
 #endif

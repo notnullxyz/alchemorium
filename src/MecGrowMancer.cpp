@@ -46,12 +46,19 @@ void setup() {
     displayTemporaryMessage("RTC Init", "OK.", 1000);
   }
 
+  // INIT - LDR
+  if (!initLDR()) {
+    debugPrintln("main: initLDR() fail", DEBUG_ERROR);
+    displayTemporaryMessage("LDR Init", "Failed", 1000);
+  }
+
   // Add tasks to the scheduler
   scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
   scheduler.addTask(checkWiFiConnection, 60000);
 
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
+  scheduler.addTask(updateLightLevelsAnalog, SENSOR_UPDATE_LDR_INT);
 
   setDebugLevel(DEBUG_VERBOSE);
 }

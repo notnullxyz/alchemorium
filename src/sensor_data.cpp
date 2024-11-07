@@ -9,11 +9,17 @@
 
 #include "sensor_data.h"
 #include "bmp280_sensor.h"
+#include "ldr_sensor.h"
 
-SensorData g_sensorData = {0.0f, 0.0f};  // init with defaults.
+SensorData g_sensorData = {0.0f, 0.0f, 0.0f};  // init with defaults.
 
 // Calls to the bmp280_sensor code.
 void updateTemperatureAndPressure() {
   g_sensorData.temperature = readTemperature();
   g_sensorData.pressure = readPressure();
+}
+
+// Calls to the LDR Sensor code
+void updateLightLevelsAnalog() {
+  g_sensorData.light = readLDRAnalogFiltered(true);
 }

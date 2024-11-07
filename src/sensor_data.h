@@ -8,13 +8,14 @@
 #define SENSOR_DATA_H
 
 struct SensorData {
-  float temperature;
-  float pressure;
+  float temperature;    // updateTemperatureAndPressure
+  float pressure;       // updateTemperatureAndPressure
+  float light;       // updateLightLevelsAnalog
 };
 
 extern SensorData g_sensorData;
 
 void updateTemperatureAndPressure();
-
+void updateLightLevelsAnalog();
 
 #endif  // SENSOR_DATA_H

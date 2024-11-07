@@ -10,6 +10,7 @@
 #define LCD_CUSTOM_CHARS_H
 
 #include <string.h>  // For memcpy
+#include <LiquidCrystal_I2C.h>
 
 // Define custom character codes
 #define CHAR_THERMOMETER 0
@@ -77,38 +78,16 @@ const uint8_t PRESSURE_CONST[8] = {
 };
 
 const uint8_t CELSIUS_CONST[8] = {
-  B11000,
-  B11000,
-  B00000,
-  B00111,
-  B00100,
-  B00100,
-  B00111,
-  B00000
+  0b11000,
+  0b11000,
+  0b00000,
+  0b00111,
+  0b00100,
+  0b00100,
+  0b00111,
+  0b00000
 };
 
-void initCustomChars(LiquidCrystal_I2C& lcd) {
-  uint8_t thermometer[8];
-  uint8_t humidity[8];
-  uint8_t light[8];
-  uint8_t fill[8];
-  uint8_t pressure[8];
-  uint8_t celsius[8];
-
-  memcpy(thermometer, THERMOMETER_CONST, 8);
-  memcpy(humidity, HUMIDITY_CONST, 8);
-  memcpy(light, LIGHT_CONST, 8);
-  memcpy(fill, FILL_CONST, 8);
-  memcpy(pressure, PRESSURE_CONST, 8);
-  memcpy(celsius, CELSIUS_CONST, 8);
-
-  lcd.createChar(CHAR_THERMOMETER, thermometer);
-  lcd.createChar(CHAR_HUMIDITY, humidity);
-  lcd.createChar(CHAR_LIGHT, light);
-  lcd.createChar(CHAR_FILL, fill);
-  lcd.createChar(CHAR_PRESSURE, pressure);
-  lcd.createChar(CHAR_CELSIUS, celsius);
-
-}
+void initCustomChars(LiquidCrystal_I2C& lcd);
 
 #endif  // LCD_CUSTOM_CHARS_H

@@ -4,6 +4,7 @@
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
 #include "ldr_sensor.h"
+#include <math.h>
 
 bool initLDR() {
     String debugMsg = "ldr_sensor: init on pin " + String(LDR_PIN);
@@ -25,67 +26,68 @@ bool initLDR() {
 /*
   Plain old analog read. 
   For filtering @see readLDRAnalogFiltered()
+  @param invert bool LDR modules invert, some don't. False to not invert.
  */
-int16_t readLDRAnalog() {
-  int ldrValue = analogRead(LDR_PIN);
+int16_t readLDRAnalog(bool invert) {
+  int16_t rawValue = analogRead(LDR_PIN);
 
-  // Safe values for analog reading
-  if (ldrValue < 0 || ldrValue > 4095) {
+  // Safe check for analog reading
+  if (rawValue < 0 || rawValue > 4095) {
     debugPrintln("ldr_sensor: values out of bounds");
     return -1;
   }
 
-  return ldrValue;
+  // Adjust the value based on the invert parameter
+  if (invert) {
+    return 4095 - rawValue;  // Invert the value if specified
+  } else {
+    return rawValue;  // Return the raw value if no inversion is needed
+  }
 }
 
 /*
-  Read LDR analog value with filtering.
-  
-  - Uses exponential moving average for smootth transitions.
-  - const DRASTIC_CHANGE_THRESHOLD defines the magnitude of a drastic change.
-  - Keep track of consecutive drastic changes and, 
-    * If less than 3, ignore it [potential spike (e.g., flash, lightning, vehicle headlamps, etc)]
-    * If 3 or more, accepts as genuine rapid light change (but limit rate)
-  - const MAX_CHANGE limits the maximum allowed change per reading.
-  
-  So, this filter smooths normal variations and resists most transient spikes,
-  while still allowing  significant, persistent light level changes (clouds, etc)
-  
-  @return Filtered LDR value, or -1 if read error occurs.
-*/
-int16_t readLDRAnalogFiltered() {
-  static float filteredValue = -1;
-  static int drasticChangeCount = 0;
-  int16_t rawValue = readLDRAnalog();
-  
+  Return an EMA (exponential moving average) filtered reading from the LDR.
+  @param invert bool LDR modules invert, some don't. False to NOT invert.
+ */
+int16_t readLDRAnalogFiltered(bool invert) {
+  static float filteredValue = -1;  // Init to a negative value indicating no initial reading
+  int16_t rawValue = readLDRAnalog(invert);
+
   if (rawValue == -1) {
-    return -1;
+    return rawValue;    // return invalid if reading was invalid
   }
 
   if (filteredValue < 0) {
-    filteredValue = rawValue;
-    return (int16_t)round(filteredValue);
-  }
-
-  float difference = abs(rawValue - filteredValue);
-
-  if (difference > DRASTIC_CHANGE_THRESHOLD) {
-    drasticChangeCount++;
-    if (drasticChangeCount >= 3) {
-      // detect consistently drastic changes, but conmtinue with minimal impact
-      filteredValue += (rawValue > filteredValue) ? MAX_CHANGE : -MAX_CHANGE;
-      drasticChangeCount = 0;
-    }
-    // or maintain the previous filtered reading.
+    filteredValue = rawValue;   // the first valid reading
   } else {
-    drasticChangeCount = 0;
-    float newValue = (LDR_FILTER_ALPHA * rawValue) + ((1 - LDR_FILTER_ALPHA) * filteredValue);
-    if (abs(newValue - filteredValue) > MAX_CHANGE) {
-      filteredValue += (newValue > filteredValue) ? MAX_CHANGE : -MAX_CHANGE;
-    } else {
-      filteredValue = newValue;
-    }
+    // Apply EMA filter
+    filteredValue = (LDR_FILTER_ALPHA * rawValue) + ((1 - LDR_FILTER_ALPHA) * filteredValue);
   }
 
-  return (int16_t)round(filteredValue);
+  return static_cast<int16_t>(round(filteredValue));
+}
+
+
+/**
+ * Lux as a unit.
+ * To use this, we need to determine sensor type/design/indirect/direct
+ * But more important, calibrating with a known lux meter, to set LDR_TO_LUX_SCALE and LDR_TO_LUX_OFFSET
+ * @see ldr_sensor.h
+ */
+
+// Simple linear conversion; usable only if calibrated
+float convertLDRToLux(float filteredValue) {
+  return (filteredValue * LDR_TO_LUX_SCALE) + LDR_TO_LUX_OFFSET;
+}
+
+/*
+  Get the filtered analog values, but converted to Lux.
+  @param invert bool LDR modules invert, some don't. False to NOT invert.
+*/
+int16_t readLDRFilteredLux(bool invert) {
+  int16_t filteredValue = readLDRAnalogFiltered();
+  if (filteredValue == -1) {
+    return -1;
+  }
+  return static_cast<int16_t>(round(convertLDRToLux(filteredValue)));
 }

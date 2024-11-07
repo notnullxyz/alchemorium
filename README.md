@@ -4,6 +4,8 @@ MecGrowMancer is an ESP32-based device designed for farm, homestead, and garden 
 It utilizes (a growing list of) sensors to monitor environmental conditions and provide useful data for plant growth and management.
 The project codename MecGrowMancer is derived from the words 'mechanical' (devices, machines, real world things),'grow' (growing, nurturing, nature) and 'mancer' (to control things magically, which hacking at this codebase sometimes is).
 
+![GNU GPLv3 Logo](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
+
 ## Development Philosophy
 
 The MecGrowMancer project is built on principles of efficiency and optimization, tailored for resource-constrained microcontroller environments:
@@ -31,6 +33,7 @@ Features are developed and added as time, weather, farm work and components avai
 - Time: NTP (Network Time) Synchronisation
 - Sensors: Temperature (Bosch BMP280)
 - Sensors: Barometric (Bosch BMP280)
+- Sensors: Light levels (direct or indirect based on sensor placement and design?)
 
 ### Planned/Under Development
 - Interface: Web UI

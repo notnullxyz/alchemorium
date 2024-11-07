@@ -23,16 +23,14 @@ const char NTP_SERVER2[] PROGMEM = "1.za.pool.ntp.org";
 // System Timezone
 const char TZ_STRING[] PROGMEM = "SAST-2";
 
-// getter for configuration constants
+// getter for configuration constants ^
 char* getConfig(const char* key);
 
 /**
  * LDR - Light Level Measurement Section
  */
-#define LDR_INTERVAL 5000               // how often in ms, to do light measurements
-#define LDR_FILTER_ALPHA 0.2            // FILTERING: how quickly to respond to change. Lower = smoother, but slower
-#define MAX_CHANGE 100                  // FILTERING: prevent spikes by capping maximum change (in filtered values) between readings
-#define DRASTIC_CHANGE_THRESHOLD 500    // FILTERING: what constitutes a drastic change? If raw vs filtered values exceed this = it's considered significant
+#define LDR_FILTER_ALPHA 0.5f  // Smoothing factor, between 0 and 1 (higher = less smoothing, faster)
+#define SENSOR_UPDATE_LDR_INT 5000      // take light readings every x seconds.
 
 /**
  * LCD Section

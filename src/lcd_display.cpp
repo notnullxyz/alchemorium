@@ -5,12 +5,6 @@
  */
 
 #include "lcd_display.h"
-#include <LiquidCrystal_I2C.h>
-#include "serial_debug.h"
-#include "lcd_custom_chars.h"
-#include "bmp280_sensor.h"
-#include <time.h>
-#include "rtc_module.h"
 
 // Init the lcd lib with the address and cols/rows
 LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
@@ -154,7 +148,7 @@ void updateMetricDisplay() {
     case TEMP:
       lcd.write(byte(CHAR_THERMOMETER));
       lcd.print(" ");
-      lcd.print(readTemperature());
+      lcd.print(g_sensorData.temperature);
       lcd.write(byte(CHAR_CELSIUS));
       break;
     case HUMIDITY:
@@ -166,13 +160,13 @@ void updateMetricDisplay() {
     case LIGHT:
       lcd.write(byte(CHAR_LIGHT));
       lcd.print(" ");
-      lcd.print("??");
-      lcd.print("lux");
+      lcd.print(g_sensorData.light);
+      lcd.print("lx");
       break;
     case PRESSURE:
       lcd.write(byte(CHAR_PRESSURE));
       lcd.print(" ");
-      lcd.print(readPressure());
+      lcd.print(g_sensorData.pressure);
       lcd.print("hPa");
       break;
       // and so forth.

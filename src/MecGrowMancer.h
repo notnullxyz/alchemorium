@@ -16,6 +16,7 @@
 #include "lcd_display.h"
 #include "bmp280_sensor.h"
 #include "rtc_module.h"
+#include "ldr_sensor.h"
 #include "serial_debug.h"
 #include "scheduler.h"
 #include "wifi_manager.h"

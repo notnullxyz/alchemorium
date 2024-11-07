@@ -48,6 +48,8 @@ Features are developed and added as time, weather, farm work and components avai
 - Tank Level Monitoring (for coupling with flow and device controls)
 - Dosing (water amendments, quality etc by possibly, peristaltic pumps and flow measurements)
 - Data logging/Data export
+- Calibration and filtering for sensors (especially cheaper ones)
+- Gas/Oxygen/Airflow  (For terrariums, home safety, gas storage areas)
 
 ## Hardware Components
 

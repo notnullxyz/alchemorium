@@ -4,22 +4,7 @@
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
 
-// converting from ino to cpp - need this. pio says so.
-#include <Arduino.h>
-
-// Custom module headers
-#include "lcd_display.h"
-#include "bmp280_sensor.h"
-#include "rtc_module.h"
-#include "serial_debug.h"
-#include "scheduler.h"
-#include "wifi_manager.h"
-
-// Cooperative multitasking with configurable CPU yield - keeping this here for now.
-const uint8_t CPU_THROTTLE_PERCENTAGE = 10;  // 10% throttle
-const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
-
-const unsigned long LCD_UPDATE_INTERVAL = 1000;  // every second
+#include "MecGrowMancer.h"
 
 void setup() {
   initDebug();

@@ -8,7 +8,18 @@
 bool initLDR() {
     String debugMsg = "ldr_sensor: init on pin " + String(LDR_PIN);
     debugPrintln(debugMsg.c_str(), DEBUG_VERBOSE);
+
     pinMode(LDR_PIN, INPUT);
+
+    // Measure an initial value, to determine if the sensor is actually functional.
+    int16_t initialValue = readLDRAnalog();
+    if (initialValue == -1) {
+        debugPrintln("ldr_sensor: failed to read initial value", DEBUG_ERROR);
+        return false;
+    }
+
+    debugPrintln("ldr_sensor: initialization successful", DEBUG_INFO);
+    return true;
 }
 
 /*

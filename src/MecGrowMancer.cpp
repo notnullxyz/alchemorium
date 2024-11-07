@@ -10,12 +10,13 @@ void setup() {
   initDebug();
   initLCD();
 
+  // INIT - Temperature and Pressure
   if (!initTempAndPressureSystem()) {
     debugPrintln("main: initTempAndPressureSystem() fail", DEBUG_ERROR);
     displayTemporaryMessage("Sensors Init", "Temp/Pres Fail", 1000);
   }
 
-  // Initialise the wifi. See comments inside:
+  // INIT - WiFi
   if (!initWiFi()) {
     debugPrintln("main: initWiFi() fail", DEBUG_ERROR);
     displayTemporaryMessage("WiFi Init", "Failed", 1000);
@@ -36,7 +37,7 @@ void setup() {
     }
   }
 
-  // Initialise the real time clock.
+  // INIT - RTC
   if (!initRTC()) {
     debugPrintln("main: initRTC() fail", DEBUG_ERROR);
     displayTemporaryMessage("RTC Init", "Failed", 1000);

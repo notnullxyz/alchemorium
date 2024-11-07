@@ -29,7 +29,7 @@ char* getConfig(const char* key);
 /**
  * LDR - Light Level Measurement Section
  */
-const char LDR_INTERVAL = 5000;         // how often in ms, to do light measurements
+#define LDR_INTERVAL 5000               // how often in ms, to do light measurements
 // LDR - Filtering. 
 #define LDR_FILTER_ALPHA 0.2            // how quickly to respond to change. Lower = smoother, but slower
 #define MAX_CHANGE 100                  // prevent spikes by capping maximum change (in filtered values) between readings

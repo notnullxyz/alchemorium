@@ -9,13 +9,9 @@
 
 #include <Arduino.h>
 #include "serial_debug.h"
+#include "config.h"
 
 #define LDR_PIN 33
-
-// Filtering. See README.md
-#define LDR_FILTER_ALPHA 0.1
-#define MAX_CHANGE 100
-#define DRASTIC_CHANGE_THRESHOLD 500
 
 bool initLDR();
 int16_t readLDRAnalog();

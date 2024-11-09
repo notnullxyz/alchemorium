@@ -30,7 +30,7 @@ char* getConfig(const char* key);
  * LDR - Light Level Measurement Section
  */
 #define LDR_FILTER_ALPHA 0.5f  // Smoothing factor, between 0 and 1 (higher = less smoothing, faster)
-#define SENSOR_UPDATE_LDR_INT 5000      // take light readings every x seconds.
+#define SENSOR_UPDATE_LDR_INT 3000      // take light readings every x seconds.
 
 /**
  * LCD Section

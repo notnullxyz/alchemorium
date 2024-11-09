@@ -13,6 +13,7 @@ void initDebug(long baudRate) {
   while (!Serial) {
     ;  // Wait for serial port to connect
   }
+  Serial.println("serial_debug: init OK");
 }
 
 void setDebugLevel(DebugLevel level) {

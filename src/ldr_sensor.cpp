@@ -7,8 +7,7 @@
 #include <math.h>
 
 bool initLDR() {
-    String debugMsg = "ldr_sensor: init on pin " + String(LDR_PIN);
-    debugPrintln(debugMsg.c_str(), DEBUG_VERBOSE);
+    debugPrintf(DEBUG_VERBOSE, "ldr_sensor: init on pin %d\n", LDR_PIN);
 
     pinMode(LDR_PIN, INPUT);
 
@@ -30,15 +29,17 @@ bool initLDR() {
  */
 int16_t readLDRAnalog(bool invert) {
   int16_t rawValue = analogRead(LDR_PIN);
+  debugPrintf(DEBUG_WARNING, "ldr_sensor: read ldr analog: %d\n", rawValue);
 
   // Safe check for analog reading
   if (rawValue < 0 || rawValue > 4095) {
-    debugPrintln("ldr_sensor: values out of bounds");
+    debugPrintf(DEBUG_WARNING, "ldr_sensor: values out of bounds: %d\n", rawValue);
     return -1;
   }
 
   // Adjust the value based on the invert parameter
   if (invert) {
+    debugPrintf(DEBUG_INFO, "ldr_sensor: using inverted value: %d", (4095 - rawValue));
     return 4095 - rawValue;  // Invert the value if specified
   } else {
     return rawValue;  // Return the raw value if no inversion is needed
@@ -52,7 +53,7 @@ int16_t readLDRAnalog(bool invert) {
 int16_t readLDRAnalogFiltered(bool invert) {
   static float filteredValue = -1;  // Init to a negative value indicating no initial reading
   int16_t rawValue = readLDRAnalog(invert);
-
+  debugPrintf(DEBUG_VERBOSE, "ldr_sensor: filtered: raw value = %d\n", rawValue);
   if (rawValue == -1) {
     return rawValue;    // return invalid if reading was invalid
   }

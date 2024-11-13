@@ -1,5 +1,5 @@
 /*
- * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Alchemorium - ESP32-based Environmental Monitoring and Research Station
  * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
@@ -10,6 +10,7 @@
 #include <ThreeWire.h>
 #include <RtcDS1302.h>
 #include <WiFi.h>
+#include <Timezone.h>
 #include "config.h"
 
 extern RtcDS1302<ThreeWire> Rtc;

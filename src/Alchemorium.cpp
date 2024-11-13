@@ -1,10 +1,10 @@
 /*
- * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Alchemorium - ESP32-based Environmental Monitoring and Research Station
  * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
 
-#include "MecGrowMancer.h"
+#include "Alchemorium.h"
 
 void setup() {
   initDebug();
@@ -53,10 +53,13 @@ void setup() {
   }
 
   // Add tasks to the scheduler
+  /**
+   * ******** SCHEDULER TASKS *****************************
+   * Each task must be clearly named and timed (preferably with a descriptive conf/constant)
+   */
   scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
-  scheduler.addTask(checkWiFiConnection, 60000);
-
+  scheduler.addTask(checkWiFiConnection, WIFI_RETRY_DELAY);
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
   scheduler.addTask(updateLightLevelsAnalog, SENSOR_UPDATE_LDR_INT);
 

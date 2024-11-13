@@ -1,5 +1,5 @@
 /*
- * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Alchemorium - ESP32-based Environmental Monitoring and Research Station
  * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
@@ -10,6 +10,9 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include "rtc_module.h"
+
+const unsigned long WIFI_TIMEOUT = 20000;      // 20 seconds timeout for connection
+const unsigned long WIFI_RETRY_DELAY = 60000;  // 1 minute delay before retry
 
 // Globals to keep track of NTP timings - closely tied together.
 extern unsigned long lastNTPTime;

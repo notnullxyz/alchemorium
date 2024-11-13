@@ -1,5 +1,5 @@
 /*
- * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Alchemorium - ESP32-based Environmental Monitoring and Research Station
  * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
@@ -102,10 +102,10 @@ void selfTest() {
     int col = i % LCD_COLUMNS;                          // Calculate column (0 to 15)
     lcd.setCursor(col, row);
     lcd.write(byte(CHAR_FILL));  // Test by filling all pixels
-    delay(22);
+    delay(SELF_TEST_FILL_AND_CLEAR_DELAY);
   }
 
-  delay(700);  // Hold the display filled for a moment
+  delay(SELF_TEST_HOLD_DELAY);  // Hold the display filled for a moment
 
   // Roll off: Clear the screen
   for (int i = 0; i < LCD_COLUMNS; ++i) {
@@ -115,7 +115,7 @@ void selfTest() {
     lcd.setCursor(i, 1);
     lcd.write(' ');
 
-    delay(24);
+    delay(SELF_TEST_FILL_AND_CLEAR_DELAY);
   }
 }
 
@@ -123,9 +123,9 @@ void selfTest() {
 void displayDeviceInfo() {
   lcd.clear();
   centerText(0, DEVICE_NAME);
-  delay(70);
+  delay(SELF_TEST_FILL_AND_CLEAR_DELAY * 2);
   centerText(1, VERSION);
-  delay(500);
+  delay(SELF_TEST_HOLD_DELAY);
   lcd.clear();
 }
 

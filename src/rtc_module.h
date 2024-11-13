@@ -10,6 +10,7 @@
 #include <ThreeWire.h>
 #include <RtcDS1302.h>
 #include <WiFi.h>
+#include <Timezone.h>
 #include "config.h"
 
 extern RtcDS1302<ThreeWire> Rtc;

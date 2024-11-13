@@ -13,6 +13,10 @@ const int DAT = 26;  // DAT
 const int CLK = 25;  // CLK
 const int RST = 27;  // RST
 
+// default South Africa Standard Time (SAST) timezone rules
+TimeChangeRule saTime = {"SAST", Last, Sun, Mar, 2, 120};  // UTC +2 hours, no DST
+Timezone myTZ(saTime, saTime);  // same, we don't have DST here
+
 ThreeWire myWire(DAT, CLK, RST);
 RtcDS1302<ThreeWire> Rtc(myWire);
 bool initRTC() {
@@ -43,24 +47,12 @@ void setRTCTime(const RtcDateTime& dt) {
 void syncRTCWithNTP() {
   debugPrintln("RTC: Syncing RTC with NTP", DEBUG_INFO);
 
-  // no wifi connected? No time for you. S7/E6
   if (WiFi.status() != WL_CONNECTED) {
     displayTemporaryMessage("NTP: Sync Fail", "No WiFi", 3000);
     debugPrintln("RTC: no WiFi = no NTP sync.", DEBUG_ERROR);
     return;
   }
 
-  // Set timezone (standard tz string)
-  const char* timezone = getConfig("TZ_STRING");
-  if (timezone) {
-    debugPrintln("RTC: Found TZ_STRING in config, using that");
-    setenv("TZ", timezone, 1);
-    tzset();
-  } else {
-    debugPrintln("RTC: TZ_STRING not found. Not doing setenv(TZ...");
-  }
-
-  // IMPORTANT: please see README about NTP servers. Don't use anything you can put your paws on.
   const char* ntp_server1 = getConfig("NTP_SERVER1");
   const char* ntp_server2 = getConfig("NTP_SERVER2");
   if (ntp_server1 && ntp_server2) {
@@ -68,7 +60,7 @@ void syncRTCWithNTP() {
     debugPrintln("RTC: Using custom NTP servers from config", DEBUG_INFO);
   } else {
     configTime(0, 0, "pool.ntp.org", "time.nist.gov");
-    debugPrintln("RTC: Using hardcoded default NTP servers in rtc_module", DEBUG_INFO);
+    debugPrintln("RTC: Using default NTP servers in rtc_module", DEBUG_INFO);
   }
 
   time_t now;
@@ -80,16 +72,17 @@ void syncRTCWithNTP() {
   }
 
   time(&now);
+  time_t local = myTZ.toLocal(now);
 
-  RtcDateTime ntpTime = RtcDateTime(
-    timeinfo.tm_year + 1900,
-    timeinfo.tm_mon + 1,
-    timeinfo.tm_mday,
-    timeinfo.tm_hour,
-    timeinfo.tm_min,
-    timeinfo.tm_sec);
+  RtcDateTime localTime = RtcDateTime(
+    year(local),
+    month(local),
+    day(local),
+    hour(local),
+    minute(local),
+    second(local));
 
-  setRTCTime(ntpTime);
-  debugPrintln("RTC: NTP sync successfull", DEBUG_INFO);
+  setRTCTime(localTime);
+  debugPrintln("RTC: NTP sync successful", DEBUG_INFO);
   displayTemporaryMessage("NTP: Sync OK", "Time Adjusted", 2000);
 }

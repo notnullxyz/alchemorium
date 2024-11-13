@@ -8,7 +8,7 @@
 #define LCD_DISPLAY_H
 
 #define DEVICE_NAME "Alchemorium"
-#define VERSION "v1.1"
+#define VERSION "v1.2"
 #define LCD_COLUMNS 16  // we use a 1602, 16 chars per line (2 lines)
 #define LCD_ROWS 2
 #define UPDATE_INTERVAL 5000  // ms interval for metrics rotation

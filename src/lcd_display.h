@@ -14,7 +14,7 @@
 #define UPDATE_INTERVAL 5000  // ms interval for metrics rotation
 
 #define SELF_TEST_FILL_AND_CLEAR_DELAY 22
-#define SELF_TEST_HOLD_DELAY 700
+#define SELF_TEST_HOLD_DELAY 1000
 
 void initLCD();
 void displayLine(int line, const char* text);

@@ -129,9 +129,9 @@ void selfTest() {
 void displayDeviceInfo() {
   lcd.clear();
   centerText(0, DEVICE_NAME);
-  delay(70);
+  delay(SELF_TEST_FILL_AND_CLEAR_DELAY * 2);
   centerText(1, VERSION);
-  delay(500);
+  delay(SELF_TEST_HOLD_DELAY);
   lcd.clear();
 }
 

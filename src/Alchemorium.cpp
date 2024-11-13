@@ -46,11 +46,13 @@ void setup() {
     displayTemporaryMessage("RTC Init", "OK.", 1000);
   }
 
-  // Add tasks to the scheduler
+  /**
+   * ******** SCHEDULER TASKS *****************************
+   * Each task must be clearly named and timed (preferably with a descriptive conf/constant)
+   */
   scheduler.addTask(updateLCDDisplay, LCD_UPDATE_INTERVAL);
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
-  scheduler.addTask(checkWiFiConnection, 60000);
-
+  scheduler.addTask(checkWiFiConnection, WIFI_RETRY_DELAY);
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
 
   setDebugLevel(DEBUG_VERBOSE);

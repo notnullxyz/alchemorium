@@ -1,5 +1,5 @@
 /*
- * MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+ * Alchemorium - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
  * Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
  * License: GNU GPLv3 (see LICENSE/COPYING file for details)
  */
@@ -7,7 +7,7 @@
 #ifndef LCD_DISPLAY_H
 #define LCD_DISPLAY_H
 
-#define DEVICE_NAME "MecGrowMancer"
+#define DEVICE_NAME "Alchemorium"
 #define VERSION "v1.1"
 #define LCD_COLUMNS 16  // we use a 1602, 16 chars per line (2 lines)
 #define LCD_ROWS 2

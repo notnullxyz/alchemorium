@@ -53,6 +53,7 @@ Features are developed and added as time, weather, farm work and components avai
 - Data logging/Data export
 - Calibration and filtering for sensors (especially cheaper ones)
 - Gas/Oxygen/Airflow  (For terrariums, home safety, gas storage areas)
+- Obstacle Detection for sensor arrays to protect against birds/animals (trigger deterence)
 
 ## Hardware Components
 

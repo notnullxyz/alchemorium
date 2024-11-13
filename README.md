@@ -1,17 +1,17 @@
-# MecGrowMancer
+# Alchemorium
 
-MecGrowMancer is an ESP32-based device designed for farm, homestead, and garden applications.
-It utilizes (a growing list of) sensors to monitor environmental conditions and provide useful data for plant growth and management.
-The project codename MecGrowMancer is derived from the words 'mechanical' (devices, machines, real world things),'grow' (growing, nurturing, nature) and 'mancer' (to control things magically, which hacking at this codebase sometimes is).
+Alchemorium is an ESP32-based device that functions as a research and monitoring station. It integrates various sensors, from low-end to custom-built, to collect and analyze environmental data. Alchemorium enables farms, homesteads, etc to track, study, and understand their environments, offering insights into ambient, climate, weather or natural patterns. This modular system is designed to be simple, efficient, and robust, serving as a data logger, early alert system, personal weather station, or research tool.
 
 ![GNU GPLv3 Logo](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
 
 ## Development Philosophy
 
-The MecGrowMancer project is built on principles of efficiency and optimization, tailored for resource-constrained microcontroller environments:
+Note: While this repository transitions from MecGrowMancer to Alchemorium, old references may be present.
+
+The Alchemorium project is built on principles of efficiency and optimization, tailored for resource-constrained microcontroller environments:
 
 1. **Language**: Primarily C/C++, leveraging low-level control and efficiency.
-2. **Memory Management**: Careful allocation and deallocation to minimize RAM usage.
+2. **Memory Management**: Careful alloc/dealloc to minimize RAM usage.
 3. **CPU Utilization**: Task scheduling and cooperative multitasking for balanced processing.
 4. **Power Efficiency**: Strategic use of sleep modes and sensor polling intervals.
 5. **Code Modularity**: Structured for maintainability and minimal coupling between components.
@@ -24,42 +24,41 @@ The MecGrowMancer project is built on principles of efficiency and optimization,
 These strategies aim to create a system that is fast, power-friendly, and economical, while maintaining reliability and functionality. Whether any of them stand strong, remains to be seen.
 
 ## Features
-Features are developed and added as time, weather, farm work and components available allows. Sponsor the project to help this move along =)
+Features are developed and added as time/weather/resources and components available allows. Project sponsoship can be translated to expedition. =)
 
 ### Completed
-- Interface: LCD (16 Character/2 Line)
-- Network: Wireless network connectivity
-- Time: Real Time Clock backed
-- Time: NTP (Network Time) Synchronisation
-- Sensors: Temperature (Bosch BMP280)
-- Sensors: Barometric (Bosch BMP280)
-- Sensors: Light levels (direct or indirect based on sensor placement and design?)
+- **Interface**: LCD (16-character/2-line)
+- **Network**: Wireless network connectivity
+- **Time**: Real-time clock backed
+- **Time**: NTP (Network Time Protocol) synchronization
+- **Sensors**: Temperature (Bosch BMP280)
+- **Sensors**: Barometric pressure (Bosch BMP280)
 
 ### Planned/Under Development
-- Interface: Web UI
-- Sky sensing (sunny, cloudy, foggy) by RGB ratio/blue ratio
-- Rain|Surface Moisture detection
-- Humidity (environment)
-- Water Flow|Leak Detection|Cut-off
-- Smoke detection
-- Interfacing with building power system
-- Irrigation Scheduling based on various sensor criteria
-- External/Remote sensors (environment)
-- Predator/Intruder detection by PIR
-- CO2 detection (greenhouse/safety)
-- External device controls (pump, greenhouse fans, coop doors, etc) by relay
-- Tank Level Monitoring (for coupling with flow and device controls)
-- Dosing (water amendments, quality etc by possibly, peristaltic pumps and flow measurements)
-- Data logging/Data export
-- Calibration and filtering for sensors (especially cheaper ones)
-- Gas/Oxygen/Airflow  (For terrariums, home safety, gas storage areas)
-- Obstacle Detection for sensor arrays to protect against birds/animals (trigger deterence)
+- **Interface**: Web UI
+- **Sky/Cloud Sensing**: Detect sunny, cloudy, foggy conditions using RGB/blue ratio or spectrum analysis
+- **Precipitation/Surface Moisture Detection**
+- **Humidity**: Environmental humidity sensing
+- **Water Flow/Leak Detection/Cut-off**
+- **Smoke Detection**
+- **External/Remote Sensors**: Environmental monitoring
+- **Predator/Intruder Detection**: By passive infra-red or microwave
+- **CO2/O2 Measurements**: Greenhouse/safety monitoring
+- **Methane/Alcohol/CO Detection**: Terrariums, safety, gas storage areas
+- **Air Quality Monitoring**
+- **External Device Controls**: Operate pumps, greenhouse fans, coop doors, etc. using relays or PWM
+- **Liquid (Tank) Level Monitoring**: For integration with flow and device controls
+- **Dosing**: Water amendments and quality control using possibly peristaltic pumps and flow measurements
+- **Data Logging/Data Export**
+- **Calibration and Filtering for Sensors**: Particularly for lower-end sensors
+- **API Connectivity for PWS Use**
+- **OTA Updates**: Remote/Over-the-air firmware updating for remote devices in the field
 
 ## Hardware Components
 
 ### ESP32 DOIT DevKit
 
-The core of the MecGrowMancer system is built around the ESP32 DOIT DevKit, providing Wi-Fi and Bluetooth connectivity along with powerful processing capabilities.
+The core of the Alchemorium system is built around the ESP32 DOIT DevKit, providing Wi-Fi and Bluetooth connectivity along with powerful processing capabilities.
 
 ### LCD Display
 
@@ -79,52 +78,19 @@ The core of the MecGrowMancer system is built around the ESP32 DOIT DevKit, prov
   - SDA : GPIO 21
   - SCL : GPIO 22
 
-## Features
-This list will change (mostly expand) as the project develops.
-
-- Real-time ambient temperature and pressure monitoring
-- Clear LCD display/dashboard for intuitive data representation
-- Efficient power management
-
 ## Software
 
-The MecGrowMancer firmware is developed using the Arduino IDE with ESP32 support. Key features include:
-
-- Modular code structure for maintainability and learnability (for new developers)
-- Sensor data processing and display
-- Debug output via serial communication
+The Alchemorium firmware/software is being developed in (primarily) C++ using Visual Studio Code and PlatformIO.
 
 ### Config.h
 
-Create a config.h in the root of the source directory. This file is not source controlled, and listed in .gitignore
-The purpose of config.h is to store common variables that may be sensitive to check in to git. 
-
-The mandatory config.h contents are:
-
-```cpp
-// config.h
-#ifndef CONFIG_H
-#define CONFIG_H
-
-// WiFi credentials
-#define WIFI_SSID "your wifi ssd"
-#define WIFI_PASSWORD "j00r passwird"
-
-// Custom NTP servers. Optional. See README.md!!!
-#define NTP_SERVER1 "0.za.pool.ntp.org"   // defaults for my ZA pool
-#define NTP_SERVER2 "1.za.pool.ntp.org"
-
-// Your timezone ; standard TZ string
-#define TZ_STRING = "SAST-2"
-
-#endif
-```
+`config.h` used to be git ignored, but is now a part of the repository. Values are randomized, so care must be taken to adjust these to your setup.
 
 #### NTP
 
 NTP stands for Network Time Protocol. It's a networking protocol for clock synchronization between computer systems over packet-switched, variable-latency data networks. NTP is crucial for maintaining accurate time across devices connected to the internet.
 
-In the context of *MecGrowMancer*:
+In the context of *Alchemorium*:
 - NTP is used to synchronize the device's RTC (Real-Time Clock) with global time servers.
 - This ensures that your device maintains accurate time, which is essential for timestamping data, scheduling tasks, and other time-dependent operations.
 - The device connects to NTP servers once a day to check and correct any time drift.
@@ -150,11 +116,11 @@ Customizing NTP Servers:
 - If not defined, it will fall back to default servers ("pool.ntp.org" and "time.nist.gov").
 - Using geographically closer NTP servers can improve synchronization accuracy and reduce network latency.
 
-Remember, accurate time is crucial for many IoT and data logging applications, making NTP an essential feature of the MecGrowMancer system.
+Remember, accurate time is crucial for many IoT and data logging applications, making NTP an essential feature of the Alchemorium system.
 
 ## Setup and Installation
 
-This will be documented in due time [after prototyping]
+This will be documented in the future [after prototyping]
 
 ## Usage
 
@@ -162,12 +128,12 @@ TODO
 
 ## Contributing
 
-TODO
+See CONTRIBUTING.md
 
 ## License
 
-Make sure that a LICENSE or COPYING file accompanies this code =)
-MecGrowMancer - ESP32-based Homestead/Farm/Garden/Home/Garage Manager
+Make sure that a LICENSE or COPYING file accompanies this code.
+Alchemorium - ESP32-based environmental monitor, logger, analysis and research station.
 Copyright (C) 2024 Marlon van der Linde <marlonv@pm.me>
 License: GNU GPLv3 (see LICENSE/COPYING file for details)
 

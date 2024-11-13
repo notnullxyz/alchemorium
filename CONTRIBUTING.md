@@ -1,19 +1,49 @@
-# Contributing to MecGrowMancer
-The project can only work if everyone's got the same hardware, connections and code versions. To help this along, it's best to fork and maintain customisations on your fork.
-Working together here, heowever, could be majorly beneficial; creating features and customisations on flags that can be turned on or off as needed.
+# Contributing to Alchemorium
 
-1. Code Style: Follow CPP/Arduino style guide. Use clear, descriptive names. Static Analysis helps.
-2. Modularity: Each feature in separate file. Minimize dependencies.
-3. Memory: Optimize for ESP32. Avoid dynamic allocation where possible.
-4. Documentation: Comment complex logic only. Update README for new features.
-5. Add feature flag/configuration for features/hardware not accesible to all.
-6. Pull Requests: 
-   - One feature/fix per PR
-   - Clear description of changes
-   - Reference issues if applicable
+Thank you for your interest in contributing to Alchemorium! Your contributions help us build a robust and versatile project. To ensure a smooth collaboration, please follow the guidelines below.
 
-7. Commit Messages: Concise, descriptive. Start with verb (Add, Fix, Update).
-8. License: Ensure contributions comply with GNU GPLv3 License (See COPYING)
-9. Hardware Compatibility: Maintain support for ESP32 DOIT DevKit and equivalent
-10. Performance: Consider resource/energy constraints. Optimize where necessary.
-We appreciate your contributions!
+## General Guidelines
+
+- **Fork the Repository**: To maintain customizations, fork the repository and work on your fork. This ensures that everyone can work with their specific hardware and configurations.
+- **Feature Flags**: Implement new features and customizations using feature flags to enable or disable them as needed.
+
+## Code Style
+
+- **Style Guide**: Adhere to the CPP/Arduino style guide.
+- **Naming Conventions**: Use clear and descriptive names for variables and functions.
+- **Static Analysis**: Utilize static analysis tools to maintain code quality.
+
+## Code Structure
+
+- **Modularity**: Implement each feature in a separate file and minimize dependencies.
+- **Memory Management**: Optimize for ESP32, avoiding dynamic allocation when possible.
+
+## Documentation
+
+- **Complex Logic**: Comment only on complex logic to keep the codebase clean.
+- **README Updates**: Update the README file to reflect new features.
+
+## Pull Requests
+
+- **Single Purpose**: Each pull request should address one feature or fix.
+- **Description**: Provide a clear and concise description of the changes.
+- **Issue References**: Reference related issues if applicable.
+
+## Commit Messages
+
+- **Clarity**: Write concise and descriptive commit messages.
+- **Format**: Begin with a verb (e.g., Add, Fix, Update).
+
+## Licensing
+
+- **Compliance**: Ensure contributions comply with the GNU GPLv3 License (see COPYING).
+
+## Hardware Compatibility
+
+- **Supported Devices**: Maintain compatibility with ESP32 DOIT DevKit and equivalent hardware.
+
+## Performance Considerations
+
+- **Resource Constraints**: Be mindful of resource and energy constraints and optimize where necessary.
+
+We appreciate your contributions and look forward to working together to enhance Alchemorium!

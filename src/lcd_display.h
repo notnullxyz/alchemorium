@@ -11,7 +11,7 @@
 #define VERSION "v1.2"
 #define LCD_COLUMNS 16  // we use a 1602, 16 chars per line (2 lines)
 #define LCD_ROWS 2
-#define UPDATE_INTERVAL 5000  // ms interval for metrics rotation
+#define UPDATE_INTERVAL 3000  // ms interval for metrics rotation
 
 #define SELF_TEST_FILL_AND_CLEAR_DELAY 22
 #define SELF_TEST_HOLD_DELAY 1000

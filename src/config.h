@@ -27,7 +27,7 @@ const char TZ_STRING[] PROGMEM = "SAST-2";
 char* getConfig(const char* key);
 
 /**
- * LDR - Light Level Measurement Section
+ * LDR - Light Level Measurement Section - not used but retained for reference later
  */
 #define LDR_INTERVAL 5000               // how often in ms, to do light measurements
 #define LDR_FILTER_ALPHA 0.2            // FILTERING: how quickly to respond to change. Lower = smoother, but slower
@@ -37,11 +37,11 @@ char* getConfig(const char* key);
 /**
  * LCD Section
  */
-#define LCD_UPDATE_INTERVAL 1000   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
+#define LCD_UPDATE_INTERVAL 500   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
 
 /**
  * Temperature and Pressure Section
  */
-#define SENSOR_UPDATE_TMPPRES_INT 10000  // update interval for temperature and pressure sensors. Use discretion.
+#define SENSOR_UPDATE_TMPPRES_INT 20000  // update interval for temperature and pressure sensors. Use discretion.
 
 #endif

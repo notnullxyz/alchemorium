@@ -17,8 +17,8 @@ LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
 
 enum MetricState {
   TEMP,
-  HUMIDITY,
-  LIGHT,
+  //HUMIDITY,
+  //LIGHT,
   PRESSURE,
   STATE_COUNT
 };
@@ -157,18 +157,18 @@ void updateMetricDisplay() {
       lcd.print(readTemperature());
       lcd.write(byte(CHAR_CELSIUS));
       break;
-    case HUMIDITY:
-      lcd.write(byte(CHAR_HUMIDITY));
-      lcd.print(" ");
-      lcd.print("??");  // still to do
-      lcd.print("%");
-      break;
-    case LIGHT:
-      lcd.write(byte(CHAR_LIGHT));
-      lcd.print(" ");
-      lcd.print("??");
-      lcd.print("lux");
-      break;
+    // case HUMIDITY:
+    //   lcd.write(byte(CHAR_HUMIDITY));
+    //   lcd.print(" ");
+    //   lcd.print("??");  // still to do
+    //   lcd.print("%");
+    //   break;
+    // case LIGHT:
+    //   lcd.write(byte(CHAR_LIGHT));
+    //   lcd.print(" ");
+    //   lcd.print("??");
+    //   lcd.print("lux");
+    //   break;
     case PRESSURE:
       lcd.write(byte(CHAR_PRESSURE));
       lcd.print(" ");

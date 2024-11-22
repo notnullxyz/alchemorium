@@ -12,7 +12,7 @@ Adafruit_BMP280 bmp;
 bool initTempAndPressureSystem() {
   debugPrintln("bmp280_sensor: init", DEBUG_INFO);
 
-  if (!bmp.begin(0x77, BMP280_CHIPID)) {
+  if (!bmp.begin(I2C_BMP280_ADDRESS, BMP280_CHIPID)) {
     debugPrintln("bmp280_sensor: no valid sensor detected", DEBUG_ERROR);
     return false;
   }

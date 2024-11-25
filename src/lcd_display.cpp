@@ -36,8 +36,8 @@ void updateMetricDisplay();
 // Convenience for everything the specific lcd may need.
 void initLCD() {
   lcd.init();
-  //lcd.backlight();
-  lcd.noBacklight();
+  lcd.backlight();
+  //lcd.noBacklight();
   debugPrintln("lcd: initialized. Starting self-test/intro", DEBUG_INFO);
   initCustomChars(lcd);
   selfTest();

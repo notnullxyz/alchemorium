@@ -26,6 +26,3 @@
 // While not really x% (depends on other things happening in the loop) it reasonably helps with reduction for infrequent tasks.
 const uint8_t CPU_THROTTLE_PERCENTAGE = 5;  // 5% throttle
 const uint32_t LOOP_DELAY_MS = (100 * CPU_THROTTLE_PERCENTAGE) / 100;
-
-// General touch pin - lcd
-#define TOUCH_PIN 32

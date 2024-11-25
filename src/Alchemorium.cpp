@@ -8,7 +8,6 @@
 
 void setup() {
   initDebug();
-  pinMode(TOUCH_PIN, INPUT);
   initLCD();
 
   // INIT - Temperature and Pressure - BMP280
@@ -66,19 +65,7 @@ void setup() {
   setDebugLevel(DEBUG_VERBOSE);
 }
 
-// A convenience during dev, to dim the eyestab
-void touchLCD() {
-  static bool lastTouchState = LOW;
-  bool currentTouchState = digitalRead(TOUCH_PIN);
-
-  if (currentTouchState == HIGH && lastTouchState == LOW) {
-    toggleLCDBacklight();
-  }
-  lastTouchState = currentTouchState;
-}
-
 void loop() {
   scheduler.run();
   delay(LOOP_DELAY_MS);
-  touchLCD();
 }

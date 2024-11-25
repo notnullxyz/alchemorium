@@ -22,6 +22,7 @@ void clearLine(int line);
 void centerText(int line, const char* text);
 void updateLCDDisplay();
 void displayTemporaryMessage(const char* line1, const char* line2, unsigned long duration);
+void toggleLCDBacklight();
 
 // Declare these as external functions
 extern float readTemperature();

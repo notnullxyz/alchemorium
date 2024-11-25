@@ -11,20 +11,22 @@
 #include "bmp280_sensor.h"
 #include <time.h>
 #include "rtc_module.h"
+#include "sht10.h"
 
 // Init the lcd lib with the address and cols/rows
 LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);
 
 enum MetricState {
   TEMP,
-  //HUMIDITY,
-  //LIGHT,
+  TEMP_SHT10,
+  HUM_SHT10,
   PRESSURE,
   STATE_COUNT
 };
 
 static MetricState currentState = TEMP;
 static unsigned long lastUpdateTime = 0;
+static bool backlightOn = false;
 
 void selfTest();
 void displayDeviceInfo();
@@ -34,7 +36,8 @@ void updateMetricDisplay();
 // Convenience for everything the specific lcd may need.
 void initLCD() {
   lcd.init();
-  lcd.backlight();
+  //lcd.backlight();
+  lcd.noBacklight();
   debugPrintln("lcd: initialized. Starting self-test/intro", DEBUG_INFO);
   initCustomChars(lcd);
   selfTest();
@@ -157,18 +160,18 @@ void updateMetricDisplay() {
       lcd.print(readTemperature());
       lcd.write(byte(CHAR_CELSIUS));
       break;
-    // case HUMIDITY:
-    //   lcd.write(byte(CHAR_HUMIDITY));
-    //   lcd.print(" ");
-    //   lcd.print("??");  // still to do
-    //   lcd.print("%");
-    //   break;
-    // case LIGHT:
-    //   lcd.write(byte(CHAR_LIGHT));
-    //   lcd.print(" ");
-    //   lcd.print("??");
-    //   lcd.print("lux");
-    //   break;
+    case TEMP_SHT10:
+      lcd.write(byte(CHAR_THERMOMETER2));
+      lcd.print(" ");
+      lcd.print(readSHT10Temperature());
+      lcd.print(byte(CHAR_CELSIUS));
+      break;
+    case HUM_SHT10:
+       lcd.write(byte(CHAR_HUMIDITY));
+       lcd.print(" ");
+       lcd.print(readSHT10Humidity());
+       lcd.print("%");
+       break;
     case PRESSURE:
       lcd.write(byte(CHAR_PRESSURE));
       lcd.print(" ");
@@ -177,4 +180,14 @@ void updateMetricDisplay() {
       break;
       // and so forth.
   }
+}
+
+void toggleLCDBacklight() {
+  backlightOn = !backlightOn;
+  if (backlightOn) {
+    lcd.backlight();
+  } else {
+    lcd.noBacklight();
+  }
+  debugPrintf(DEBUG_INFO, "lcd: Backlight %s\n", backlightOn ? "ON" : "OFF");
 }

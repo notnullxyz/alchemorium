@@ -10,11 +10,14 @@
 struct SensorData {
   float temperature;
   float pressure;
+  float temperature2;
+  float humidity;
 };
 
 extern SensorData g_sensorData;
 
-void updateTemperatureAndPressure();
+void updateTemperatureAndPressure();  // BMP280
+void updateSHT10SensorData();     // SHT10
 
 
 #endif  // SENSOR_DATA_H

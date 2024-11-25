@@ -9,6 +9,7 @@
 
 #include "sensor_data.h"
 #include "bmp280_sensor.h"
+#include "sht10.h"
 
 SensorData g_sensorData = {0.0f, 0.0f};  // init with defaults.
 
@@ -16,4 +17,9 @@ SensorData g_sensorData = {0.0f, 0.0f};  // init with defaults.
 void updateTemperatureAndPressure() {
   g_sensorData.temperature = readTemperature();
   g_sensorData.pressure = readPressure();
+}
+
+void updateSHT10SensorData() {
+  g_sensorData.temperature2 = readSHT10Temperature();
+  g_sensorData.humidity = readSHT10Humidity();
 }

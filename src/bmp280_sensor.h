@@ -10,6 +10,7 @@
 #include <Adafruit_BMP280.h>
 
 #define I2C_BMP280_ADDRESS 0x77
+#define SENSOR_UPDATE_TMPPRES_INT 20000  // update interval for temperature and pressure sensors. Use discretion.
 
 extern Adafruit_BMP280 bmp;
 bool initTempAndPressureSystem();

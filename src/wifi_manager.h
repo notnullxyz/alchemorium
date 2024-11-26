@@ -11,12 +11,12 @@
 #include <WiFi.h>
 #include "rtc_module.h"
 
-const unsigned long WIFI_TIMEOUT = 20000;      // 20 seconds timeout for connection
-const unsigned long WIFI_RETRY_DELAY = 60000;  // 1 minute delay before retry
+const unsigned long WIFI_TIMEOUT = 20000;      // Timeout for a wifi connection in millis
+const unsigned long WIFI_RETRY_DELAY = 60000;  // Retry wifi delay in millis
 
 // Globals to keep track of NTP timings - closely tied together.
 extern unsigned long lastNTPTime;
-const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL; // 24hrs
+const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL; // NTP sync interval. As little as possible, as much as needed.
 
 bool initWiFi();
 bool connectWiFi();

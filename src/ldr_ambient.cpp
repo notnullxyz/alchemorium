@@ -7,6 +7,8 @@
 
 int darknessCounter = 0;
 
+void handleLCDBacklight();
+
 bool initAmbientLightSensor()
 {
   pinMode(LDR_PIN, INPUT);
@@ -14,22 +16,42 @@ bool initAmbientLightSensor()
   return true;
 }
 
-void measureLightForLCD()
+// Read and Set the light level.
+void evaluateLightConditions()
 {
-  static bool isBacklightOn = true; // Track the current state of the backlight
-  int lightLevel = analogRead(LDR_PIN); // Read the analog value from the light sensor
+  int lightLevel = analogRead(LDR_PIN);
+  lastLightLevel = lightLevel; // Update the last light level
 
-  debugPrintf(DEBUG_INFO, "ldr_ambient: analog value = %d\n", lightLevel);
+  debugPrintf(DEBUG_INFO, "ldr_ambient: evaluateLightConditions(): Light/Analog value: %d\n", lightLevel);
+
+  // actions based on light levels
+  handleLCDBacklight();
+  // todo handleDeviceSleepMode();
+}
+
+// accessor for last collected light level
+int getLastLightLevel()
+{
+  return lastLightLevel;
+}
+
+// Turn the LCD Backlight off when it's really dark, or on when it's not.
+// This is really to prevent eye-broiling at night.
+void handleLCDBacklight()
+{
+  static bool isBacklightOn = true;
+  static int darknessCounter = 0;
+  int lightLevel = getLastLightLevel();
 
   if (lightLevel > LDR_THRESHOLD)
   {
     darknessCounter++;
     if (darknessCounter >= CONFIDENCE && isBacklightOn)
     {
-      toggleLCDBacklight(false); // Turn off the backlight
+      toggleLCDBacklight(false);
       isBacklightOn = false;
-      debugPrintln("ldr_ambient: Backlight turned OFF. Resetting state.", DEBUG_VERBOSE);
-      darknessCounter = 0; // Reset after toggle
+      debugPrintln("ldr_ambient: handleLCDBacklight: Backlight OFF", DEBUG_VERBOSE);
+      darknessCounter = 0;
     }
   }
   else
@@ -37,18 +59,16 @@ void measureLightForLCD()
     darknessCounter++;
     if (darknessCounter >= CONFIDENCE && !isBacklightOn)
     {
-      toggleLCDBacklight(true); // Turn on the backlight
+      toggleLCDBacklight(true);
       isBacklightOn = true;
-      debugPrintln("ldr_ambient: Backlight turned ON. Resetting state.", DEBUG_VERBOSE);
-      darknessCounter = 0; // Reset after toggle
+      debugPrintln("ldr_ambient: handleLCDBacklight: Backlight ON", DEBUG_VERBOSE);
+      darknessCounter = 0;
     }
   }
 
-  // Reset darknessCounter if the light condition changes before reaching CONFIDENCE
+  // reset darknessCounter if the light changes before reaching CONFIDENCE
   if ((lightLevel > LDR_THRESHOLD && !isBacklightOn) || (lightLevel <= LDR_THRESHOLD && isBacklightOn))
   {
     darknessCounter = 0;
   }
 }
-
-

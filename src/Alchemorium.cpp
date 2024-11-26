@@ -72,7 +72,7 @@ void setup()
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
   scheduler.addTask(checkWiFiConnection, WIFI_RETRY_DELAY);
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
-  scheduler.addTask(measureLightForLCD, LDR_BACKLIGHT_CHECK);
+  scheduler.addTask(evaluateLightConditions, LDR_BACKLIGHT_CHECK);
   
   setDebugLevel(DEBUG_VERBOSE);   // for dev, verbose is allright.
 }

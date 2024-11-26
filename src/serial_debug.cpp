@@ -6,7 +6,7 @@
 
 #include "serial_debug.h"
 
-static DebugLevel currentDebugLevel = DEBUG_INFO;
+static DebugLevel currentDebugLevel = DEBUG_VERBOSE;
 
 void initDebug(long baudRate) {
   Serial.begin(baudRate);

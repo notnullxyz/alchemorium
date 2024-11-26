@@ -27,17 +27,10 @@ const char TZ_STRING[] PROGMEM = "SAST-2";
 char* getConfig(const char* key);
 
 /**
- * LDR - Light Level Measurement Section - not used but retained for reference later
- */
-#define LDR_INTERVAL 5000               // how often in ms, to do light measurements
-#define LDR_FILTER_ALPHA 0.2            // FILTERING: how quickly to respond to change. Lower = smoother, but slower
-#define MAX_CHANGE 100                  // FILTERING: prevent spikes by capping maximum change (in filtered values) between readings
-#define DRASTIC_CHANGE_THRESHOLD 500    // FILTERING: what constitutes a drastic change? If raw vs filtered values exceed this = it's considered significant
-
-/**
  * LCD Section
  */
 #define LCD_UPDATE_INTERVAL 500   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
+#define LDR_BACKLIGHT_CHECK 3000  // how often to check for darkness, so we can turn off the backlight
 
 /**
  * Temperature and Pressure Section

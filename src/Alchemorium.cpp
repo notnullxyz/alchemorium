@@ -6,50 +6,62 @@
 
 #include "Alchemorium.h"
 
-void setup() {
+void setup()
+{
   initDebug();
   initLCD();
 
   // INIT - Temperature and Pressure - BMP280
-  if (!initTempAndPressureSystem()) {
+  if (!initTempAndPressureSystem())
+  {
     debugPrintln("main: initTempAndPressureSystem() fail", DEBUG_ERROR);
     displayTemporaryMessage("Sensors Init", "Temp/Pres Fail", 1000);
   }
 
-  // INIT - SHT10 temperature & humidity
-  if (!initSHT10()) {
-    debugPrintln("main: initSHT10() fail", DEBUG_ERROR);
-    displayTemporaryMessage("SHT10 Init", "Failed", 1000);
-  }
-
   // INIT - WiFi
-  if (!initWiFi()) {
+  if (!initWiFi())
+  {
     debugPrintln("main: initWiFi() fail", DEBUG_ERROR);
     displayTemporaryMessage("WiFi Init", "Failed", 1000);
-  } else {
+  }
+  else
+  {
     // Update the LCD to show the connection status immediately
     displayTemporaryMessage("Connecting to", "WiFi...", 800);
 
     // Either we load from config.h or input by serial (for dev)... choose one of:
-    if (setWiFiCredentials()) {  // Set creds from config.h
-      if (connectWiFi()) {
+    if (setWiFiCredentials())
+    { // Set creds from config.h
+      if (connectWiFi())
+      {
         debugPrintln("main: connectWiFi success", DEBUG_INFO);
         displayTemporaryMessage("WiFi", "Connected", 700);
-      } else {
+      }
+      else
+      {
         displayTemporaryMessage("WiFi", "Connect Failed", 1200);
       }
-    } else {
+    }
+    else
+    {
       displayTemporaryMessage("WiFi", "No credentials in config", 1200);
     }
   }
 
   // INIT - RTC
-  if (!initRTC()) {
+  if (!initRTC())
+  {
     debugPrintln("main: initRTC() fail", DEBUG_ERROR);
     displayTemporaryMessage("RTC Init", "Failed", 1000);
-  } else {
+  }
+  else
+  {
     syncRTCWithNTP();
     displayTemporaryMessage("RTC Init", "OK.", 1000);
+  }
+
+  if (!initAmbientLightSensor) {
+    debugPrintln("main: initAmbientLightSensor() fail", DEBUG_ERROR);
   }
 
   /**
@@ -60,12 +72,13 @@ void setup() {
   scheduler.addTask(syncRTCWithNTP, NTP_SYNC_INTERVAL);
   scheduler.addTask(checkWiFiConnection, WIFI_RETRY_DELAY);
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
-  scheduler.addTask(updateSHT10SensorData, SHT10_UPDATE_INTERVAL);
-
-  setDebugLevel(DEBUG_VERBOSE);
+  scheduler.addTask(measureLightForLCD, LDR_BACKLIGHT_CHECK);
+  
+  setDebugLevel(DEBUG_VERBOSE);   // for dev, verbose is allright.
 }
 
-void loop() {
+void loop()
+{
   scheduler.run();
-  delay(LOOP_DELAY_MS);
+  //delay(LOOP_DELAY_MS);
 }

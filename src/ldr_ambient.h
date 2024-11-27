@@ -10,11 +10,14 @@
 #ifndef LDR_AMBIENT_H
 #define LDR_AMBIENT_H
 
-#define LDR_PIN 34    // analog
-#define LDR_THRESHOLD 2800 // what is darkness????
-#define CONFIDENCE 4  // It's confirmed to be dark after this many readings
+#define LDR_PIN 34    // analog pin to the module
+#define LDR_THRESHOLD 2800 // Darkness threshold. Analog value from LDR module. Higher = Darker
+#define CONFIDENCE 4  // Darkness Confidence: Confirmed dark after this many threshold readings
+
+static int lastLightLevel = 0;
 
 bool initAmbientLightSensor();
-void measureLightForLCD();
+void evaluateLightConditions();
+int getLastLightLevel();
 
 #endif

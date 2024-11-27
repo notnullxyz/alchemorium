@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{DEVICE_NAME}} Dashboard</title>
+    <style>
+        body {
+            background-color: #4f6d7a; /* paynes-gray */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            padding: 20px;
+        }
+        .grid-item {
+            background-color: #56a3a6; /* verdigris */
+            border: 2px solid #084c61; /* midnight-green */
+            padding: 10px;
+            text-align: center;
+            min-height: 100px;
+        }
+        button {
+            background-color: #db504a; /* jasper */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e3b505; /* saffron */
+        }
+    </style>
+</head>
+<body>
+    <h1>{{DEVICE_NAME}} Dashboard</h1>
+    <h2>ver {{VERSION}}</h2>
+    <div class="grid-container">
+        <div class="grid-item">
+            <h3>Environment</h3>
+            <p>Temperature: <span id="temperature">Loading...</span></p>
+            <p>Pressure: <span id="pressure">Loading...</span></p>
+        </div>
+        <div class="grid-item">
+            <h3>Device</h3>
+            <button id="toggleBacklight" onclick="toggleBacklight()">Toggle LCD Backlight</button>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+        <div class="grid-item">
+            <h3>Reserved</h3>
+            <p>Unused</p>
+        </div>
+    </div>
+
+    <script>
+        async function fetchSensorData() {
+            const response = await fetch('/sensor_data');
+            const data = await response.json();
+            document.getElementById('temperature').textContent = data.temperature + ' °C';
+            document.getElementById('pressure').textContent = data.pressure + ' hPa';
+        }
+
+        function toggleBacklight() {
+            fetch('/toggle_backlight')
+            .then(response => response.text())
+            .then(text => {
+                alert(text); // Notify the user about the action
+            });
+        }
+
+        setInterval(fetchSensorData, 5000); // Update sensor data every 5 seconds
+        fetchSensorData(); // Initial fetch
+    </script>
+</body>
+</html>

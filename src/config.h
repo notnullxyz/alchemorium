@@ -3,6 +3,9 @@
 #define CONFIG_H
 #include <pgmspace.h>
 
+#define DEVICE_NAME "Alchemorium"   // Global device name
+#define VERSION "v1.4"            // global device version
+
 /*
   Configuration Constants : Stored in PROGMEM
   Delcare/Define new config constants here AND amend config.cpp
@@ -29,12 +32,13 @@ char* getConfig(const char* key);
 /**
  * LCD Section
  */
-#define LCD_UPDATE_INTERVAL 500   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
+#define LCD_UPDATE_INTERVAL 1000   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
 #define LDR_BACKLIGHT_CHECK 3000  // how often to check for darkness, so we can turn off the backlight
 
 /**
- * Temperature and Pressure Section
+ * Web Server Stuff (websrv)
  */
-#define SENSOR_UPDATE_TMPPRES_INT 20000  // update interval for temperature and pressure sensors. Use discretion.
+
+#define HTTPD_PORT 80     // the port number for web server request. Default 80
 
 #endif

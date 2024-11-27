@@ -7,8 +7,14 @@
 #ifndef LCD_DISPLAY_H
 #define LCD_DISPLAY_H
 
-#define DEVICE_NAME "Alchemorium"
-#define VERSION "v1.3"
+#include "config.h"
+#include <LiquidCrystal_I2C.h>
+#include "serial_debug.h"
+#include "lcd_custom_chars.h"
+#include "bmp280_sensor.h"
+#include <time.h>
+#include "rtc_module.h"
+
 #define LCD_COLUMNS 16  // we use a 1602, 16 chars per line (2 lines)
 #define LCD_ROWS 2
 #define UPDATE_INTERVAL 3000  // ms interval for metrics rotation

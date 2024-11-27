@@ -5,12 +5,6 @@
  */
 
 #include "lcd_display.h"
-#include <LiquidCrystal_I2C.h>
-#include "serial_debug.h"
-#include "lcd_custom_chars.h"
-#include "bmp280_sensor.h"
-#include <time.h>
-#include "rtc_module.h"
 
 // Init the lcd lib with the address and cols/rows
 LiquidCrystal_I2C lcd(0x27, LCD_COLUMNS, LCD_ROWS);

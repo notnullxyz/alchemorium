@@ -4,7 +4,7 @@
 #include <pgmspace.h>
 
 #define DEVICE_NAME "Alchemorium"   // Global device name
-#define VERSION "v1.3"            // global device version
+#define VERSION "v1.4"            // global device version
 
 /*
   Configuration Constants : Stored in PROGMEM

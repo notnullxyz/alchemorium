@@ -11,12 +11,11 @@
 #include "bmp280_sensor.h"
 #include "serial_debug.h"
 
-SensorData g_sensorData = {0.0f, 0.0f}; // init with defaults.
+SensorData g_sensorData = {0.0f, 0.0f};  // init with defaults.
 
 // Calls to the bmp280_sensor code.
-void updateTemperatureAndPressure()
-{
-  debugPrintln("sensor_data: updateTemperatureAndPressure();", DEBUG_VERBOSE);
-  g_sensorData.temperature = readTemperature();
-  g_sensorData.pressure = readPressure();
+void updateTemperatureAndPressure() {
+    debugPrintln("sensor_data: updateTemperatureAndPressure();", DEBUG_VERBOSE);
+    g_sensorData.temperature = readTemperature();
+    g_sensorData.pressure = readPressure();
 }

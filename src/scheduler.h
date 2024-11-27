@@ -14,23 +14,23 @@
 // Sonnet helped me with this. Brain hurt.
 
 class Task {
-public:
-  Task(std::function<void()> func, unsigned long interval, bool runOnce = false)
-    : function(func), interval(interval), lastRun(0), runOnce(runOnce) {}
+   public:
+    Task(std::function<void()> func, unsigned long interval, bool runOnce = false)
+        : function(func), interval(interval), lastRun(0), runOnce(runOnce) {}
 
-  std::function<void()> function;
-  unsigned long interval;
-  unsigned long lastRun;
-  bool runOnce;
+    std::function<void()> function;
+    unsigned long interval;
+    unsigned long lastRun;
+    bool runOnce;
 };
 
 class Scheduler {
-public:
-  void addTask(std::function<void()> func, unsigned long interval, bool runOnce = false);
-  void run();
+   public:
+    void addTask(std::function<void()> func, unsigned long interval, bool runOnce = false);
+    void run();
 
-private:
-  std::vector<Task> tasks;
+   private:
+    std::vector<Task> tasks;
 };
 
 extern Scheduler scheduler;

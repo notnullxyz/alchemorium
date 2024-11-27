@@ -12,7 +12,7 @@ void toggleLCDBacklightEndpoint();
 
 void handleRoot() {
     debugPrintln("websrv: handleRoot", DEBUG_VERBOSE);
-    
+
     File file = SPIFFS.open("/index.html", "r");
     if (!file) {
         debugPrintln("websrv: handleRoot error opening index.html", DEBUG_ERROR);
@@ -23,19 +23,19 @@ void handleRoot() {
     String html = file.readString();
     html.replace("{{DEVICE_NAME}}", DEVICE_NAME);
     html.replace("{{VERSION}}", VERSION);
-    
+
     server.send(200, "text/html", html);
     file.close();
 }
 
 void handleSensorData() {
     debugPrintln("websrv: handleSensorData", DEBUG_VERBOSE);
-    
+
     // Use a buffer for JSON
     char json[64];
-    snprintf(json, sizeof(json), "{\"temperature\":%.2f,\"pressure\":%.2f}", 
-             g_sensorData.temperature, g_sensorData.pressure);
-    
+    snprintf(json, sizeof(json), "{\"temperature\":%.2f,\"pressure\":%.2f}", g_sensorData.temperature,
+             g_sensorData.pressure);
+
     server.send(200, "application/json", json);
 }
 
@@ -54,13 +54,10 @@ void initWebServer() {
 }
 
 void toggleLCDBacklightEndpoint() {
-    static bool backlightState = true; // Initial state
+    static bool backlightState = true;  // Initial state
     backlightState = !backlightState;
     toggleLCDBacklight(backlightState);
     server.send(200, "text/plain", "LCD Backlight toggled");
 }
 
-
-void handleClientRequests() {
-  server.handleClient();
-}
+void handleClientRequests() { server.handleClient(); }

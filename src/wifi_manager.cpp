@@ -12,45 +12,45 @@
 static char wifi_ssid[32] = "";
 static char wifi_password[64] = "";
 
-unsigned long lastNTPTime = 0;    // track last ntp time.
+unsigned long lastNTPTime = 0;  // track last ntp time.
 
 bool initWiFi() {
-  WiFi.mode(WIFI_STA);
-  return true;
+    WiFi.mode(WIFI_STA);
+    return true;
 }
 
 bool connectWiFi() {
-  if (strlen(wifi_ssid) == 0 || strlen(wifi_password) == 0) {
-    debugPrintln("wifi: credentials not set", DEBUG_ERROR);
-    return false;
-  }
-
-  debugPrintln("wifi: Connecting", DEBUG_INFO);
-  WiFi.begin(wifi_ssid, wifi_password);
-  
-  // Update the LCD to show the connection status immediately
-  displayTemporaryMessage("Connecting to", "WiFi...", 2000);
-
-  unsigned long startAttemptTime = millis();
-  bool connected = false;
-
-  // Non-blocking connection check
-  while (millis() - startAttemptTime < WIFI_TIMEOUT) {
-    if (WiFi.status() == WL_CONNECTED) {
-      connected = true;
-      break;
+    if (strlen(wifi_ssid) == 0 || strlen(wifi_password) == 0) {
+        debugPrintln("wifi: credentials not set", DEBUG_ERROR);
+        return false;
     }
-    delay(50); // Short delay to prevent busy-waiting
-  }
 
-  if (!connected) {
-    debugPrintln("wifi: connection failed", DEBUG_ERROR);
-    return false;
-  }
+    debugPrintln("wifi: Connecting", DEBUG_INFO);
+    WiFi.begin(wifi_ssid, wifi_password);
 
-  debugPrint("wifi: connected. IP -> ", DEBUG_INFO);
-  debugPrintln(WiFi.localIP().toString().c_str(), DEBUG_INFO);
-  return true;
+    // Update the LCD to show the connection status immediately
+    displayTemporaryMessage("Connecting to", "WiFi...", 2000);
+
+    unsigned long startAttemptTime = millis();
+    bool connected = false;
+
+    // Non-blocking connection check
+    while (millis() - startAttemptTime < WIFI_TIMEOUT) {
+        if (WiFi.status() == WL_CONNECTED) {
+            connected = true;
+            break;
+        }
+        delay(50);  // Short delay to prevent busy-waiting
+    }
+
+    if (!connected) {
+        debugPrintln("wifi: connection failed", DEBUG_ERROR);
+        return false;
+    }
+
+    debugPrint("wifi: connected. IP -> ", DEBUG_INFO);
+    debugPrintln(WiFi.localIP().toString().c_str(), DEBUG_INFO);
+    return true;
 }
 
 // Check wifi, and if we reconnect, do NTP sync (but also, only once a day)
@@ -68,35 +68,32 @@ void checkWiFiConnection() {
     }
 }
 
-bool isWiFiConnected() {
-  return WiFi.status() == WL_CONNECTED;
-}
+bool isWiFiConnected() { return WiFi.status() == WL_CONNECTED; }
 
 // Set the Wifi Creds from the values in config.h
 bool setWiFiCredentials() {
-  char* ssid = getConfig("WIFI_SSID");
-  char* password = getConfig("WIFI_PASSWORD");
+    char* ssid = getConfig("WIFI_SSID");
+    char* password = getConfig("WIFI_PASSWORD");
 
-  if (ssid && password) {
-    strncpy(wifi_ssid, ssid, sizeof(wifi_ssid) - 1);
-    wifi_ssid[sizeof(wifi_ssid) - 1] = '\0';  // Ensure null-termination
+    if (ssid && password) {
+        strncpy(wifi_ssid, ssid, sizeof(wifi_ssid) - 1);
+        wifi_ssid[sizeof(wifi_ssid) - 1] = '\0';  // Ensure null-termination
 
-    strncpy(wifi_password, password, sizeof(wifi_password) - 1);
-    wifi_password[sizeof(wifi_password) - 1] = '\0';  // Ensure null-termination
+        strncpy(wifi_password, password, sizeof(wifi_password) - 1);
+        wifi_password[sizeof(wifi_password) - 1] = '\0';  // Ensure null-termination
 
-    // free up the dyn alloc'd string from getConfig()
-    free(ssid);
-    free(password);
-    debugPrintln("wifi: credentials set from config", DEBUG_INFO);
-    return true;
-  } else {
-    debugPrintln("wifi: credentials not found in config", DEBUG_ERROR);
-    wifi_ssid[0] = '\0';
-    wifi_password[0] = '\0';
-    return false;
-  }
+        // free up the dyn alloc'd string from getConfig()
+        free(ssid);
+        free(password);
+        debugPrintln("wifi: credentials set from config", DEBUG_INFO);
+        return true;
+    } else {
+        debugPrintln("wifi: credentials not found in config", DEBUG_ERROR);
+        wifi_ssid[0] = '\0';
+        wifi_password[0] = '\0';
+        return false;
+    }
 }
-
 
 // This version of setWifiCredentials() is for calling from inputWifiCredentialsSerial()
 /*
@@ -113,12 +110,12 @@ void inputWiFiCredentialsSerial() {
   while (!Serial.available()) {}
   String ssid = Serial.readStringUntil('\n');
   ssid.trim();
-  
+
   Serial.println("WiFi Password:");
   while (!Serial.available()) {}
   String password = Serial.readStringUntil('\n');
   password.trim();
-  
+
   setWiFiCredentials(ssid.c_str(), password.c_str());
 }
 */

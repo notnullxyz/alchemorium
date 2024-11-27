@@ -3,8 +3,8 @@
 #define CONFIG_H
 #include <pgmspace.h>
 
-#define DEVICE_NAME "Alchemorium"   // Global device name
-#define VERSION "v1.4"            // global device version
+#define DEVICE_NAME "Alchemorium"  // Global device name
+#define VERSION "v1.4"             // global device version
 
 /*
   Configuration Constants : Stored in PROGMEM
@@ -32,13 +32,13 @@ char* getConfig(const char* key);
 /**
  * LCD Section
  */
-#define LCD_UPDATE_INTERVAL 1000   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
+#define LCD_UPDATE_INTERVAL 1000  // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
 #define LDR_BACKLIGHT_CHECK 3000  // how often to check for darkness, so we can turn off the backlight
 
 /**
  * Web Server Stuff (websrv)
  */
 
-#define HTTPD_PORT 80     // the port number for web server request. Default 80
+#define HTTPD_PORT 80  // the port number for web server request. Default 80
 
 #endif

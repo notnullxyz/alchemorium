@@ -1,0 +1,16 @@
+# .clang-format based on google, and evolved to fit good standards and most of these Arduino/ESP projects
+
+BasedOnStyle: Google
+IndentWidth: 4
+UseTab: Never
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+ColumnLimit: 120
+SortIncludes: false
+SpacesInParentheses: false
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: true
+# SpaceBeforeCStyleCast: true  # Commented out due to compatibility issues
+SpacesInContainerLiterals: true
+Cpp11BracedListStyle: true

@@ -16,7 +16,8 @@ const unsigned long WIFI_RETRY_DELAY = 60000;  // Retry wifi delay in millis
 
 // Globals to keep track of NTP timings - closely tied together.
 extern unsigned long lastNTPTime;
-const unsigned long NTP_SYNC_INTERVAL = 24 * 60 * 60 * 1000UL; // NTP sync interval. As little as possible, as much as needed.
+const unsigned long NTP_SYNC_INTERVAL =
+    24 * 60 * 60 * 1000UL;  // NTP sync interval. As little as possible, as much as needed.
 
 bool initWiFi();
 bool connectWiFi();
@@ -25,7 +26,7 @@ bool isWiFiConnected();
 bool setWiFiCredentials();
 
 // not used, unless enabled in wifi_manager.cpp:
-//void setWiFiCredentials(const char* ssid, const char* password);
-//void inputWiFiCredentialsSerial();
+// void setWiFiCredentials(const char* ssid, const char* password);
+// void inputWiFiCredentialsSerial();
 
 #endif

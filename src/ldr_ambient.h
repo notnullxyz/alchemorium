@@ -10,9 +10,9 @@
 #ifndef LDR_AMBIENT_H
 #define LDR_AMBIENT_H
 
-#define LDR_PIN 34    // analog pin to the module
-#define LDR_THRESHOLD 2800 // Darkness threshold. Analog value from LDR module. Higher = Darker
-#define CONFIDENCE 4  // Darkness Confidence: Confirmed dark after this many threshold readings
+#define LDR_PIN 34          // analog pin to the module
+#define LDR_THRESHOLD 2800  // Darkness threshold. Analog value from LDR module. Higher = Darker
+#define CONFIDENCE 4        // Darkness Confidence: Confirmed dark after this many threshold readings
 
 static int lastLightLevel = 0;
 

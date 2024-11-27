@@ -9,6 +9,12 @@
 void setup()
 {
   initDebug();
+  if (!SPIFFS.begin(true))
+  {
+    debugPrintln("SPIFFS initialization failed!", DEBUG_ERROR);
+    return;
+  }
+
   initLCD();
 
   // INIT - Temperature and Pressure - BMP280
@@ -36,7 +42,7 @@ void setup()
       {
         debugPrintln("main: connectWiFi success", DEBUG_INFO);
         displayTemporaryMessage("WiFi", "Connected", 700);
-        initWebServer();  // go for httpd when we have wifi only
+        initWebServer(); // go for httpd when we have wifi only
       }
       else
       {
@@ -61,7 +67,8 @@ void setup()
     displayTemporaryMessage("RTC Init", "OK.", 1000);
   }
 
-  if (!initAmbientLightSensor) {
+  if (!initAmbientLightSensor)
+  {
     debugPrintln("main: initAmbientLightSensor() fail", DEBUG_ERROR);
   }
 
@@ -74,14 +81,14 @@ void setup()
   scheduler.addTask(checkWiFiConnection, WIFI_RETRY_DELAY);
   scheduler.addTask(updateTemperatureAndPressure, SENSOR_UPDATE_TMPPRES_INT);
   scheduler.addTask(evaluateLightConditions, LDR_BACKLIGHT_CHECK);
-  
-  setDebugLevel(DEBUG_VERBOSE);   // for dev, verbose is allright.
+
+  setDebugLevel(DEBUG_VERBOSE); // for dev, verbose is allright.
 }
 
 void loop()
 {
   scheduler.run();
-  //delay(LOOP_DELAY_MS);
+  // delay(LOOP_DELAY_MS);
 
   // direct calling this here. If we need, we can schedule this later to balance priority:responsive web
   handleClientRequests();

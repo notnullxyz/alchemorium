@@ -22,6 +22,7 @@
 #include "sensor_data.h"
 #include "ldr_ambient.h"
 #include "websrv.h"
+#include "SPIFFS.h"
 
 // Cooperative multitasking with configurable CPU yield
 // While not really x% (depends on other things happening in the loop) it reasonably helps with reduction for infrequent tasks.

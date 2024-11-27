@@ -6,6 +6,8 @@
 
 #include "websrv.h"
 #include "lcd_display.h"
+#include "FS.h"         // Include the FS library for file handling
+#include "SPIFFS.h"     // Include SPIFFS library
 
 WebServer server(HTTPD_PORT);
 
@@ -14,28 +16,15 @@ void toggleLCDBacklightEndpoint();
 void handleRoot() {
     debugPrintln("websrv: handleRoot", DEBUG_VERBOSE);
     
-    char html[1024];
-    snprintf(html, sizeof(html),
-        "<html><head><title>Alchemorium Dashboard</title>"
-        "<script>function fetchData() {"
-        "fetch('/sensor_data')"
-        ".then(response => response.json())"
-        ".then(data => {"
-        "document.getElementById('temperature').innerText = data.temperature + ' &deg;C';"
-        "document.getElementById('pressure').innerText = data.pressure + ' hPa';"
-        "});"
-        "}"
-        "setInterval(fetchData, 5000);"
-        "</script></head><body>"
-        "<h1>Alchemorium Dashboard</h1>"
-        "<p>Temperature: <span id='temperature'>Loading...</span></p>"
-        "<p>Pressure: <span id='pressure'>Loading...</span></p>"
-        "<button onclick='toggleBacklight()'>Toggle LCD Backlight</button>"
-        "<script>function toggleBacklight() {fetch('/toggle_backlight');}</script>"
-        "</body></html>", 
-        g_sensorData.temperature, g_sensorData.pressure);
+    File file = SPIFFS.open("/index.html", "r");
+    if (!file) {
+        debugPrintln("websrv: handleRoot error opening index.html", DEBUG_ERROR);
+        server.send(404, "text/plain", "File Not Found");
+        return;
+    }
     
-    server.send(200, "text/html", html);
+    server.streamFile(file, "text/html");
+    file.close();
 }
 
 void handleSensorData() {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alchemorium Dashboard</title>
+    <script>
+        function fetchData() {
+            fetch('/sensor_data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('temperature').innerText = data.temperature + ' °C';
+                document.getElementById('pressure').innerText = data.pressure + ' hPa';
+            });
+        }
+        setInterval(fetchData,4000);
+        function toggleBacklight() {
+            fetch('/toggle_backlight');
+        }
+    </script>
+</head>
+<body>
+    <h1>Alchemorium Dashboard</h1>
+    <p>Temperature: <span id='temperature'>...please wait...</span></p>
+    <p>Pressure: <span id='pressure'>...please wait...</span></p>
+    <button onclick='toggleBacklight()'>Toggle LCD Backlight</button>
+</body>
+</html>

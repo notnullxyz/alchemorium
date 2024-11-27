@@ -32,4 +32,10 @@ char* getConfig(const char* key);
 #define LCD_UPDATE_INTERVAL 1000   // LCD updates/redraws. Generally 1s is good (clock looks good, and data is fresh)
 #define LDR_BACKLIGHT_CHECK 3000  // how often to check for darkness, so we can turn off the backlight
 
+/**
+ * Web Server Stuff (websrv)
+ */
+
+#define HTTPD_PORT 80     // the port number for web server request. Default 80
+
 #endif

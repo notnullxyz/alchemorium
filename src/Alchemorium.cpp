@@ -36,6 +36,7 @@ void setup()
       {
         debugPrintln("main: connectWiFi success", DEBUG_INFO);
         displayTemporaryMessage("WiFi", "Connected", 700);
+        initWebServer();  // go for httpd when we have wifi only
       }
       else
       {
@@ -81,4 +82,7 @@ void loop()
 {
   scheduler.run();
   //delay(LOOP_DELAY_MS);
+
+  // direct calling this here. If we need, we can schedule this later to balance priority:responsive web
+  handleClientRequests();
 }

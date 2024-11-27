@@ -13,28 +13,28 @@ void toggleLCDBacklightEndpoint();
 
 void handleRoot() {
     debugPrintln("websrv: handleRoot", DEBUG_VERBOSE);
-    String html = "<html><head><title>Alchemorium Dashboard</title>";
-    html += "<script>";
-    html += "function fetchData() {";
-    html += "fetch('/sensor_data')"
-            ".then(response => response.json())"
-            ".then(data => {"
-            "document.getElementById('temperature').innerText = data.temperature + ' °C';"
-            "document.getElementById('pressure').innerText = data.pressure + ' hPa';"
-            "});"
-            "}";
-    html += "setInterval(fetchData, 2000);";  // Fetch data every 2 seconds
-    html += "</script></head><body>";
-    html += "<h1>Alchemorium Dashboard</h1>";
-    html += "<p>Temperature: <span id='temperature'>Loading...</span></p>";
-    html += "<p>Pressure: <span id='pressure'>Loading...</span></p>";
-    html += "<button onclick='toggleBacklight()'>Toggle LCD Backlight</button>";
-    html += "<script>";
-    html += "function toggleBacklight() {";
-    html += "fetch('/toggle_backlight');";
-    html += "}";
-    html += "</script>";
-    html += "</body></html>";
+    
+    char html[1024];
+    snprintf(html, sizeof(html),
+        "<html><head><title>Alchemorium Dashboard</title>"
+        "<script>function fetchData() {"
+        "fetch('/sensor_data')"
+        ".then(response => response.json())"
+        ".then(data => {"
+        "document.getElementById('temperature').innerText = data.temperature + ' &deg;C';"
+        "document.getElementById('pressure').innerText = data.pressure + ' hPa';"
+        "});"
+        "}"
+        "setInterval(fetchData, 5000);"
+        "</script></head><body>"
+        "<h1>Alchemorium Dashboard</h1>"
+        "<p>Temperature: <span id='temperature'>Loading...</span></p>"
+        "<p>Pressure: <span id='pressure'>Loading...</span></p>"
+        "<button onclick='toggleBacklight()'>Toggle LCD Backlight</button>"
+        "<script>function toggleBacklight() {fetch('/toggle_backlight');}</script>"
+        "</body></html>", 
+        g_sensorData.temperature, g_sensorData.pressure);
+    
     server.send(200, "text/html", html);
 }
 

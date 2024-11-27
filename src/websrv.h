@@ -14,6 +14,9 @@
 #include "serial_debug.h"
 #include "sensor_data.h"
 #include "config.h"
+#include "lcd_display.h"
+#include "FS.h"         // Include the FS library for file handling
+#include "SPIFFS.h"     // Include SPIFFS library
 
 void initWebServer();
 void handleClientRequests();

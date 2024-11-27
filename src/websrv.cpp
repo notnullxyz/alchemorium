@@ -5,9 +5,6 @@
  */
 
 #include "websrv.h"
-#include "lcd_display.h"
-#include "FS.h"         // Include the FS library for file handling
-#include "SPIFFS.h"     // Include SPIFFS library
 
 WebServer server(HTTPD_PORT);
 
@@ -22,8 +19,12 @@ void handleRoot() {
         server.send(404, "text/plain", "File Not Found");
         return;
     }
+
+    String html = file.readString();
+    html.replace("{{DEVICE_NAME}}", DEVICE_NAME);
+    html.replace("{{VERSION}}", VERSION);
     
-    server.streamFile(file, "text/html");
+    server.send(200, "text/html", html);
     file.close();
 }
 

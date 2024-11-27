@@ -3,6 +3,9 @@
 #define CONFIG_H
 #include <pgmspace.h>
 
+#define DEVICE_NAME "Alchemorium"   // Global device name
+#define VERSION "v1.3"            // global device version
+
 /*
   Configuration Constants : Stored in PROGMEM
   Delcare/Define new config constants here AND amend config.cpp

@@ -8,8 +8,8 @@
 #define SENSOR_DATA_H
 
 struct SensorData {
-  float temperature;
-  float pressure;
+    float temperature;
+    float pressure;
 };
 
 extern SensorData g_sensorData;

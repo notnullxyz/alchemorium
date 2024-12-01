@@ -9,13 +9,7 @@
 
 #include <Arduino.h>
 
-enum DebugLevel {
-  DEBUG_NONE,
-  DEBUG_ERROR,
-  DEBUG_WARNING,
-  DEBUG_INFO,
-  DEBUG_VERBOSE
-};
+enum DebugLevel { DEBUG_NONE, DEBUG_ERROR, DEBUG_WARNING, DEBUG_INFO, DEBUG_VERBOSE };
 
 void initDebug(long baudRate = 115200);
 void setDebugLevel(DebugLevel level);

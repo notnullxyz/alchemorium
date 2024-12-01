@@ -21,27 +21,9 @@
 #define CHAR_CELSIUS 5
 
 // Custom character definitions - using https://chareditor.com/ as an aid
-const uint8_t THERMOMETER_CONST[8] = {
-  0b00100,
-  0b01010,
-  0b01010,
-  0b01110,
-  0b01110,
-  0b11111,
-  0b11111,
-  0b01110
-};
+const uint8_t THERMOMETER_CONST[8] = {0b00100, 0b01010, 0b01010, 0b01110, 0b01110, 0b11111, 0b11111, 0b01110};
 
-const uint8_t HUMIDITY_CONST[8] = {
-  0b00100,
-  0b00100,
-  0b01010,
-  0b01010,
-  0b10001,
-  0b10001,
-  0b10001,
-  0b01110
-};
+const uint8_t HUMIDITY_CONST[8] = {0b00100, 0b00100, 0b01010, 0b01010, 0b10001, 0b10001, 0b10001, 0b01110};
 
 // const uint8_t LIGHT_CONST[8] = {
 //   0b00000,
@@ -54,38 +36,11 @@ const uint8_t HUMIDITY_CONST[8] = {
 //   0b00000
 // };
 
-const uint8_t FILL_CONST[8] = {
-  0b11111,
-  0b11111,
-  0b11111,
-  0b11111,
-  0b11111,
-  0b11111,
-  0b11111,
-  0b11111
-};
+const uint8_t FILL_CONST[8] = {0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
 
-const uint8_t PRESSURE_CONST[8] = {
-  0b00100,
-  0b01110,
-  0b10101,
-  0b10001,
-  0b10001,
-  0b10001,
-  0b01110,
-  0b00100
-};
+const uint8_t PRESSURE_CONST[8] = {0b00100, 0b01110, 0b10101, 0b10001, 0b10001, 0b10001, 0b01110, 0b00100};
 
-const uint8_t CELSIUS_CONST[8] = {
-	0b10000,
-	0b00111,
-	0b01000,
-	0b01000,
-	0b01000,
-	0b01000,
-	0b00111,
-	0b00000
-};
+const uint8_t CELSIUS_CONST[8] = {0b10000, 0b00111, 0b01000, 0b01000, 0b01000, 0b01000, 0b00111, 0b00000};
 
 void initCustomChars(LiquidCrystal_I2C& lcd);
 

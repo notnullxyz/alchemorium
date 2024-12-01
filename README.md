@@ -23,6 +23,36 @@ The Alchemorium project is built on principles of efficiency and optimization, t
 
 These strategies aim to create a system that is fast, power-friendly, and economical, while maintaining reliability and functionality. Whether any of them stand strong, remains to be seen.
 
+## Adding and Expanding your own features
+
+Alchemorium already consists of the core functionality needed to operate on its own. There are already LCD interfacing, Wifi connectivity, Time synchronisation, various sensors for environmental input, etc. The task scheduler is ready for use, but adding tasks (like sensor measurements, updates, etc) to the scheduler. Adding your own features should be simple, and with luck, done by copying the 
+current setup (or, mimicking it).
+
+- INIT: Alchemorium.cpp is the main file, and contains the usual setup() function, where you will add your new sensor/feature initialisation calls
+- SCHEDULER: The task scheduler is located in Alchemorium.cpp, and adding a task can be seen in current working examples in the file (section 'SCHEDULER TASKS')
+- Create modular code for your new feature, by adding a descriptively named source and header file. If you are adding a rocket launcher, you'll add rocket_launcher.cpp and rocket_launcher.h
+- Write the code you need, and put any 'common configuration' constants in config.h. Leave complicated, technical constants in your .h
+- If the feature requires lcd display, you can call current (or add new) useful LCD functionality (see lcd_display.h)
+- If the feature requires display/input on the web dashboard, then edit /data/index.html (and upload to flash). See websrv.h
+- Test, follow philosophy, write modular, efficient, non-blocking code.
+
+### File reference
+
+These are the source file names (.cpp and .h) and their intended purposes
+
+- Alchemorium : Main file with setup()+initialisers, task scheduler, main loop
+- bmp280_sensor : The sensor control for the Bosch BMP280 Temperature and Pressure sensor
+- config : Configuration constants for commonly tuned parameters only
+- lcd_custom_chars : Custom characters live here
+- lcd_display : Some convenient and needed code for working the the 16x2 i2c LCD
+- ldr_ambient : Control/Measurements of ambient light levels from simple analog LDR sensor modules
+- rtc_module : Realtime Clock module code. NTP sync'd
+- scheduler : The task scheduler (non blocking, timed calling of other code)
+- sensor_data : The structure that houses the last updated sensor input values, used by things like the LCD and Web Dashboard
+- serial_debug : Serial print line code to make debug a bit easier/uniform to read on the serial console
+- websrv : Web server and dashboard loading. Runs only if wifi is connected
+- wifi_manager : simple wifi connection, retry, etc code
+
 ## Features
 Features are developed and added as time/weather/resources and components available allows. Project sponsoship can be translated to expedition. =)
 

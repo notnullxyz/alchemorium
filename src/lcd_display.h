@@ -22,13 +22,15 @@
 #define SELF_TEST_FILL_AND_CLEAR_DELAY 22
 #define SELF_TEST_HOLD_DELAY 1000
 
-void initLCD();
-void displayLine(int line, const char* text);
-void clearLine(int line);
-void centerText(int line, const char* text);
-void updateLCDDisplay();
-void displayTemporaryMessage(const char* line1, const char* line2, unsigned long duration);
-void toggleLCDBacklight(bool state);
+void initLCD();                                // initialise the LCD
+void displayLine(int line, const char* text);  // Display 'text' on 'line' number
+void clearLine(int line);                      // clears the lcd line number
+void centerText(int line, const char* text);   // display centered text on 'line' number
+void updateLCDDisplay();                       // update the display with the latest available data
+void displayTemporaryMessage(const char* line1, const char* line2,
+                             unsigned long duration);  // Temporary display line1+line2 for duration ms (use sparingly)
+void toggleLCDBacklight(
+    bool state);  // turn the backlight on or off by providing a boolean value (avoid rapid switching)
 
 // Declare these as external functions
 extern float readTemperature();

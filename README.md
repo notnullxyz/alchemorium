@@ -92,6 +92,7 @@ Inside ldr_ambient.h, you will find:
 #define LDR_THRESHOLD 2800  // Darkness threshold. Analog value from LDR module. Higher = Darker
 #define CONFIDENCE 3        // Darkness Confidence: Confirmed dark after this many threshold readings
 ```
+Set these as needed. Defaults are sane enough for the test module. Avoid rapidly switching backlight on and off to prevent voltage surges on your board
 
 ## Software
 

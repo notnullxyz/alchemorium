@@ -18,6 +18,8 @@
 // WiFi Network
 const char WIFI_SSID[] PROGMEM = "woodhouse";
 const char WIFI_PASSWORD[] PROGMEM = "zingerwings";
+const unsigned long WIFI_TIMEOUT = 20000;      // Timeout for a wifi connection in millis
+const unsigned long WIFI_RETRY_DELAY = 60000;  // Retry wifi delay in millis
 
 // NTP Servers
 const char NTP_SERVER1[] PROGMEM = "0.za.pool.ntp.org";

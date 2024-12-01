@@ -10,6 +10,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include "rtc_module.h"
+#include "config.h"
 
 const unsigned long WIFI_TIMEOUT = 20000;      // Timeout for a wifi connection in millis
 const unsigned long WIFI_RETRY_DELAY = 60000;  // Retry wifi delay in millis

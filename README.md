@@ -79,6 +79,20 @@ The core of the Alchemorium system is built around the ESP32 DOIT DevKit, provid
   - SDA : GPIO 21
   - SCL : GPIO 22
 
+### LDR Module
+
+A simple analog LDR module (even your own) can provide readings to determine the ambient light level locally (around the main unit).
+These levels are useful to detect night-time/day-time or general light levels to conditionally enable the lcd backlight, or put the device to sleep.
+
+The LCD Backlight control is implemented, and uses some configurable values for deciding when to toggle.
+Inside ldr_ambient.h, you will find:
+
+```
+#define LDR_PIN 34          // analog pin to the module
+#define LDR_THRESHOLD 2800  // Darkness threshold. Analog value from LDR module. Higher = Darker
+#define CONFIDENCE 3        // Darkness Confidence: Confirmed dark after this many threshold readings
+```
+
 ## Software
 
 The Alchemorium firmware/software is being developed in (primarily) C++ using Visual Studio Code and PlatformIO.

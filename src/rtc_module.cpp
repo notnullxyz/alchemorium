@@ -8,11 +8,6 @@
 #include "serial_debug.h"
 #include "lcd_display.h"
 
-// RTC Pins - DS1302 in this case
-const int DAT = 26;  // DAT
-const int CLK = 25;  // CLK
-const int RST = 27;  // RST
-
 // default South Africa Standard Time (SAST) timezone rules
 TimeChangeRule saTime = {"SAST", Last, Sun, Mar, 2, 120};  // UTC +2 hours, no DST
 Timezone myTZ(saTime, saTime);                             // same, we don't have DST here

@@ -87,42 +87,38 @@ Features are developed and added as time/weather/resources and components availa
 
 ## Hardware Components
 
-### ESP32 DOIT DevKit
+### ESP32 DOIT DevKit board pins, in this case
 
-The core of the Alchemorium system is built around the ESP32 DOIT DevKit, providing Wi-Fi and Bluetooth connectivity along with powerful processing capabilities.
+A reference of the main branch code + pin configurations, for quick hookup.
 
 ### LCD Display
 
 1602 in I2C mode:
-- **Connections**:
-  - VCC	: 5V
-  - GND : GND
-  - SDA : GPIO 21
-  - SCL : GPIO 22
+- VCC	: 5V
+- GND : GND
+- SDA : GPIO 21 (i2c)
+- SCL : GPIO 22 (i2c)
 
 ### BMP280 Temperature and Pressure Sensor
-
-- **Model**: DFROBOT / Bosch based BMP280 Barometric and Temperature sensor at hardware address 0x77
-- **Connections**:
-  - VCC : 3.3V
-  - GND : GND
-  - SDA : GPIO 21
-  - SCL : GPIO 22
+DFROBOT / Bosch based BMP280 Barometric and Temperature sensor at hardware address 0x77
+- VCC : 3.3V
+- GND : GND
+- SDA : GPIO 21 (i2c)
+- SCL : GPIO 22 (i2c)
 
 ### LDR Module
+Simple LDR module. If you build your own, then 'analog' is what we use here.
+- VCC : 3.3V
+- GND : GND
+- Analog: 34
 
-A simple analog LDR module (even your own) can provide readings to determine the ambient light level locally (around the main unit).
-These levels are useful to detect night-time/day-time or general light levels to conditionally enable the lcd backlight, or put the device to sleep.
-
-The LCD Backlight control is implemented, and uses some configurable values for deciding when to toggle.
-Inside ldr_ambient.h, you will find:
-
-```
-#define LDR_PIN 34          // analog pin to the module
-#define LDR_THRESHOLD 2800  // Darkness threshold. Analog value from LDR module. Higher = Darker
-#define CONFIDENCE 3        // Darkness Confidence: Confirmed dark after this many threshold readings
-```
-Set these as needed. Defaults are sane enough for the test module. Avoid rapidly switching backlight on and off to prevent voltage surges on your board
+## RTC - Realtime Clock
+DS1302 based RTC Module with CR2032 button cell.
+- VCC : 3.3V
+- GND : GND
+- CLK : GPIO 25
+- DAT : GPIO 26
+- RST : GPIO 27
 
 ## Software
 

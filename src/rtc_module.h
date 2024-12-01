@@ -15,6 +15,11 @@
 
 extern RtcDS1302<ThreeWire> Rtc;
 
+// RTC Pins - DS1302 in this case
+const int DAT = 26;  // DAT
+const int CLK = 25;  // CLK
+const int RST = 27;  // RST
+
 bool initRTC();
 RtcDateTime getCurrentTime();
 void setRTCTime(const RtcDateTime& dt);

@@ -28,14 +28,15 @@ Features are developed and added as time/weather/resources and components availa
 
 ### Completed
 - **Interface**: LCD (16-character/2-line)
+- **Interface**: Web UI
 - **Network**: Wireless network connectivity
 - **Time**: Real-time clock backed
 - **Time**: NTP (Network Time Protocol) synchronization
 - **Sensors**: Temperature (Bosch BMP280)
 - **Sensors**: Barometric pressure (Bosch BMP280)
+- **Sensors**: Light Level (Local) for things like LCD backlight control/night-detection
 
 ### Planned/Under Development
-- **Interface**: Web UI
 - **Sky/Cloud Sensing**: Detect sunny, cloudy, foggy conditions using RGB/blue ratio or spectrum analysis
 - **Precipitation/Surface Moisture Detection**
 - **Humidity**: Environmental humidity sensing

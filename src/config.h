@@ -15,6 +15,12 @@
   If you're going to be using super long strings, change it to 32bytes or whatever.
 */
 
+/**
+ * I2C Custom Pins
+ */
+#define SDA_PIN 32  // Non Default SDA pin
+#define SCL_PIN 33  // Non Default SCL pin
+
 // WiFi Network
 const char WIFI_SSID[] PROGMEM = "woodhouse";
 const char WIFI_PASSWORD[] PROGMEM = "zingerwings";

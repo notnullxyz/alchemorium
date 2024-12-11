@@ -11,6 +11,7 @@ Adafruit_BMP280 bmp;
 
 bool initTempAndPressureSystem() {
     debugPrintln("bmp280_sensor: init", DEBUG_INFO);
+    Wire.begin(SDA_PIN, SCL_PIN);  // non default I2C pins in config.h
 
     if (!bmp.begin(I2C_BMP280_ADDRESS, BMP280_CHIPID)) {
         debugPrintln("bmp280_sensor: no valid sensor detected", DEBUG_ERROR);

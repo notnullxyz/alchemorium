@@ -21,6 +21,7 @@ void updateMetricDisplay();
 
 // Convenience for everything the specific lcd may need.
 void initLCD() {
+    Wire.begin(SDA_PIN, SCL_PIN);  // non default I2C pins
     lcd.init();
     lcd.backlight();
     // lcd.noBacklight();
